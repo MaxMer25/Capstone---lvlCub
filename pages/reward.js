@@ -1,3 +1,3 @@
-export default function reward() {
+export default function Reward() {
   return <h1>Rewardpage: Work in Progress</h1>;
 }

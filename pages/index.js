@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function login() {
+export default function Login() {
   return (
     <>
       <Stylewrapper>
