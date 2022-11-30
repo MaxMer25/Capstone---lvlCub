@@ -5,7 +5,7 @@ import {loginChild} from "../utils/loginChild";
 import {UserContext} from "../components/UserContext";
 
 export default function Login() {
-  const {setUser} = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
   return (
     <>
       {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
