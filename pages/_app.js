@@ -5,9 +5,6 @@ import React from "react";
 import Head from "next/head";
 
 function MyApp({Component, pageProps}) {
-  // const [user, setUser] = useState(null);
-  // const value = useMemo(() => ({user, setUser}), [user, setUser]);
-
   return (
     <div>
       <Head>
