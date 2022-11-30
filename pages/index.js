@@ -8,7 +8,7 @@ export default function Login() {
   const {user, setUser} = useContext(UserContext);
   return (
     <>
-      {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
+      <pre>{JSON.stringify(user, null, 2)}</pre>
 
       <Stylewrapper>
         <h1>Welcome to lvlCub! Please Choose:</h1>
