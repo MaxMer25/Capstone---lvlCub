@@ -1,8 +1,15 @@
+import React, {useContext} from "react";
 import styled from "styled-components";
+import {loginParent} from "../utils/loginParent";
+import {loginChild} from "../utils/loginChild";
+import {UserContext} from "../components/UserContext";
 
 export default function Login() {
+  const {setUser} = useContext(UserContext);
   return (
     <>
+      {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
+
       <Stylewrapper>
         <h1>Welcome to lvlCub! Please Choose:</h1>
       </Stylewrapper>
@@ -14,6 +21,11 @@ export default function Login() {
         viewBox="0 0 100 152"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        onClick={async () => {
+          const user = await loginParent();
+          setUser(user);
+          alert(`Hello ${user.type}`);
+        }}
       >
         <title>Parenticon</title>
         <path
@@ -112,6 +124,11 @@ export default function Login() {
         viewBox="0 0 100 146"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        onClick={async () => {
+          const user = await loginChild();
+          setUser(user);
+          alert(`Hello ${user.type}`);
+        }}
       >
         <title>Childicon</title>
         <path
