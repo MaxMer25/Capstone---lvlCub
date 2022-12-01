@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Zimmer aufräumen",
+    "image": "/_data/roomexample.png",
+    "whichOne": "Max",
+    "details": "Bitte auch staubsaugen"
+  },
+  {
+    "title": "Mit dem Hund rausgehen",
+    "image": "/_data/dogexample.png",
+    "whichOne": "Jurian",
+    "details": "Lass ihn an der Leine"
+  },
+  {
+    "title": "Einkaufen",
+    "image": "/_data/groceryexample.png",
+    "whichOne": "Alrike",
+    "details": "Bitte Hundefutter mitbringen"
+  }
+]
