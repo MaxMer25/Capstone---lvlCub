@@ -8,7 +8,7 @@ export default function Navigation() {
     <footer>
       <StyledNavigation>
         <ul>
-          <StyledLink onClick={() => router.push("/")} href={"/"}>
+          <StyledLink href={"/"}>
             <svg
               role="img"
               width="62"
@@ -25,7 +25,7 @@ export default function Navigation() {
             </svg>
           </StyledLink>
 
-          <StyledLink onClick={() => router.push("/home")} href={"/home"}>
+          <StyledLink href={"/home/tasks"}>
             <svg
               role="img"
               width="62"
@@ -37,12 +37,12 @@ export default function Navigation() {
               <path
                 d="M8.45455 56.0952V26.5714H0L31 0L62 26.5714H53.5455V29.5238H47.9091V22.069L31 7.60238L14.0909 22.069V50.1905H19.7273V56.0952H8.45455ZM37.2 62L25.3636 49.6L29.3091 45.4667L37.2 53.7333L53.8273 36.3143L57.7727 40.4476L37.2 62Z"
                 // currentPage Indicator
-                fill={router.pathname === "/home" ? "#12263A" : "#FBF5F3"}
+                fill={router.pathname === "/home/tasks" ? "#12263A" : "#FBF5F3"}
               />
             </svg>
           </StyledLink>
 
-          <StyledLink onClick={() => router.push("/reward")} href={"/reward"}>
+          <StyledLink href={"/reward"}>
             <svg
               role="img"
               width="62"
