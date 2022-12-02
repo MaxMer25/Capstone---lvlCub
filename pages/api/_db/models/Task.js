@@ -17,6 +17,14 @@ const TaskSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  gold: {
+    type: Number,
+    required: true,
+  },
+  experience: {
+    type: Number,
+    required: true,
+  },
 });
 
 export const Task =

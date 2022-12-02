@@ -1,20 +1,26 @@
 [
   {
     "title": "Zimmer aufräumen",
-    "image": "/_data/roomexample.png",
+    "image": "/roomexample.png",
     "whichOne": "Max",
-    "details": "Bitte auch staubsaugen"
+    "details": "Bitte auch staubsaugen",
+    "gold": 100,
+    "experience": 50
   },
   {
     "title": "Mit dem Hund rausgehen",
-    "image": "/_data/dogexample.png",
+    "image": "/dogexample.png",
     "whichOne": "Jurian",
-    "details": "Lass ihn an der Leine"
+    "details": "Lass ihn an der Leine",
+    "gold": 250,
+    "experience": 100
   },
   {
     "title": "Einkaufen",
-    "image": "/_data/groceryexample.png",
+    "image": "/groceryexample.png",
     "whichOne": "Alrike",
-    "details": "Bitte Hundefutter mitbringen"
+    "details": "Bitte Hundefutter mitbringen",
+    "gold": 150,
+    "experience": 50
   }
 ]
