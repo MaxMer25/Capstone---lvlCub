@@ -55,7 +55,6 @@ export default function Home() {
       </Head>
       <ul>
         {tasks.map(task => {
-          console.log(task);
           return (
             <StyledList key={task._id}>
               <h2>{task.title}</h2>
@@ -70,9 +69,9 @@ export default function Home() {
                 <p>{JSON.stringify(task.gold)}cc</p>
                 <p>{task.experience}exp</p>
               </StyledGoldContainer>
-              <StyledDeleteButton>
-                <Link href={`/${task._id}`}></Link>Details
-              </StyledDeleteButton>
+              <Link href={`/home/${task._id}`}>
+                <StyledDetailsButton>Details</StyledDetailsButton>
+              </Link>
             </StyledList>
           );
         })}
@@ -119,7 +118,7 @@ const StyledImage = styled(Image)`
   grid-area: 2 / 1 / 3 / 2;
 `;
 
-const StyledDeleteButton = styled.button`
+const StyledDetailsButton = styled.button`
   border-radius: 20px;
   position: relative;
   left: 45%;
