@@ -59,9 +59,9 @@ export default function Home() {
             <StyledList key={task._id}>
               <h2>{task.title}</h2>
               <StyledImage
+                width={175}
+                height={122}
                 src={task.image}
-                width="120"
-                height="100"
                 alt="picture of a task"
               ></StyledImage>
               <StyledGoldContainer>
@@ -93,8 +93,9 @@ const StyledList = styled.li`
   background: #e1dfe1;
   border: 2px solid #78290f;
   border-radius: 8px;
-  width: min(100% - 2rem);
+  width: min(100% - 2rem, 600px);
   padding: 10px;
+
   h2 {
     padding: 6px 40px;
     gap: 6px;
