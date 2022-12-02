@@ -34,19 +34,19 @@ export default function Home() {
 
   // delete function for the future
 
-  async function handleDelete(id) {
-    try {
-      const response = await fetch(`/api/tasks/${id}`, {method: "DELETE"});
-      if (response.ok) {
-        console.log("Product deleted!");
-      } else {
-        throw new Error(`Fetch fehlgeschlagen mit Status: ${response.status}`);
-      }
-    } catch (error) {
-      alert(error.message);
-    }
-    setShouldReload(true);
-  }
+  // async function handleDelete(id) {
+  //   try {
+  //     const response = await fetch(`/api/tasks/${id}`, {method: "DELETE"});
+  //     if (response.ok) {
+  //       console.log("Product deleted!");
+  //     } else {
+  //       throw new Error(`Fetch fehlgeschlagen mit Status: ${response.status}`);
+  //     }
+  //   } catch (error) {
+  //     alert(error.message);
+  //   }
+  //   setShouldReload(true);
+  // }
 
   return (
     <div>
