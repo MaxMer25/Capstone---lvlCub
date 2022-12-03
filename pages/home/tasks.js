@@ -59,6 +59,7 @@ export default function Home() {
             <StyledList key={task._id}>
               <h2>{task.title}</h2>
               <StyledImage
+                priority={true}
                 width={175}
                 height={122}
                 src={task.image}
@@ -91,9 +92,10 @@ const StyledList = styled.li`
   grid-row-gap: 0px;
   isolation: isolate;
   background: #e1dfe1;
-  border: 2px solid #78290f;
+  border: 4px solid #78290f;
   border-radius: 8px;
   width: min(100% - 2rem, 600px);
+  margin-inline: auto;
   padding: 10px;
 
   h2 {

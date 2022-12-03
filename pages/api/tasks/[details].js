@@ -5,7 +5,7 @@ async function handler(req, res) {
   switch (req.method) {
     case "GET":
       try {
-        const task = await Task.findById(req.query.taskId);
+        const task = await Task.findById(req.query.details);
         if (task) {
           return res.status(200).json(task);
         } else {
@@ -17,7 +17,7 @@ async function handler(req, res) {
 
     case "DELETE":
       try {
-        const deletedTask = await Task.findByIdAndDelete(req.query.taskId);
+        const deletedTask = await Task.findByIdAndDelete(req.query.details);
         return res
           .status(200)
           .json({message: `task ${deletedTask.name} deleted`});
