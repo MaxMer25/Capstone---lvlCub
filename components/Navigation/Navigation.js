@@ -74,9 +74,10 @@ const StyledNavigation = styled.nav`
   ul {
     list-style-type: none;
     display: flex;
+    justify-content: space-between;
   }
 `;
 
 const StyledLink = styled(Link)`
-  margin-right: auto;
+  margin-right: 10vw;
 `;
