@@ -87,6 +87,7 @@ const StyledList = styled.div`
   margin-left: auto;
   margin-right: auto;
   width: 90vw;
+  padding-bottom: 150px;
 `;
 
 const StyledListElements = styled.div`
@@ -103,7 +104,6 @@ const StyledListElements = styled.div`
   margin-top: 10%;
   padding: 10px;
   gap: 15px;
-  height: 45vh;
 
   h2 {
     padding: 6px 40px;

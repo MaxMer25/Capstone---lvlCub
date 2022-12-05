@@ -5,8 +5,9 @@ const GlobalStyles = createGlobalStyle`
     body {
         padding: 0;
         margin: 0;
-        margin-bottom: 14%;
-        background-color: #fff4e6;
+        background-image: linear-gradient(to top, #feada6 0%, #f5efef 100%); 
+        height: auto;
+        min-height: 100vh;
         
     }
     * {
