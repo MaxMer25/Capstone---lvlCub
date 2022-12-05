@@ -70,12 +70,10 @@ export default ProductDetail;
 const StyledLayout = styled.div`
   text-align: center;
   margin-bottom: 20%;
-  margin-top: 10%;
   font-size: 26px;
   font-weight: 600;
   border: 10px solid salmon;
   border-style: inset;
-  padding: 20px;
   background: rgb(103, 17, 17);
   background: linear-gradient(
     120deg,

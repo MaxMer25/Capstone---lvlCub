@@ -87,13 +87,13 @@ const StyledList = styled.div`
   margin-left: auto;
   margin-right: auto;
   width: 90vw;
-  padding-bottom: 150px;
+  padding-bottom: 15vh;
 `;
 
 const StyledListElements = styled.div`
   text-align: center;
   border: 4px solid #78290f;
-  border-radius: 8px;
+  border-radius: 8%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -102,14 +102,13 @@ const StyledListElements = styled.div`
   isolation: isolate;
   background: #fff4e6;
   margin-top: 10%;
-  padding: 10px;
-  gap: 15px;
+  padding: 5%;
+  gap: 5%;
 
   h2 {
-    padding: 6px 40px;
-    gap: 6px;
+    padding: 4% 4%;
     background: #ebebf0;
-    border-radius: 100px;
+    border-radius: 2rem;
     width: relative;
     height: fit-content;
     grid-area: 1 / 1 / 2 / 3;
@@ -119,10 +118,10 @@ const StyledListElements = styled.div`
 `;
 
 const StyledGoldContainer = styled.div`
-  border: 1px solid black;
+  border: 3px solid black;
   text-align: center;
   background: #d89848;
-  border-radius: 39.5px;
+  border-radius: 20%;
   grid-area: 2 / 2 / 3 / 3;
 `;
 
@@ -131,7 +130,7 @@ const StyledImage = styled(Image)`
 `;
 
 const StyledDetailsButton = styled.button`
-  border-radius: 20px;
+  border-radius: 2rem;
   position: relative;
   left: 45%;
   bottom: -100%;
