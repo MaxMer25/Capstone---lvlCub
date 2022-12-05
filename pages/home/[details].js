@@ -69,6 +69,7 @@ export default ProductDetail;
 
 const StyledLayout = styled.div`
   text-align: center;
+  margin-bottom: 20%;
   margin-top: 10%;
   font-size: 26px;
   font-weight: 600;

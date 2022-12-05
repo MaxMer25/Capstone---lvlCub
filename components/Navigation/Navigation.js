@@ -68,7 +68,8 @@ const StyledNavigation = styled.nav`
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 12%;
+  min-height: 1vh;
+  max-height: 100px;
   background-color: #ff6542;
 
   ul {

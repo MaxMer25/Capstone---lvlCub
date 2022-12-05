@@ -3,11 +3,13 @@ import styled from "styled-components";
 import {loginParent} from "../utils/loginParent";
 import {loginChild} from "../utils/loginChild";
 import {UserContext} from "../components/UserContext";
+import Header from "../components/Header/Header";
 
 export default function Login() {
   const {setUser} = useContext(UserContext);
   return (
     <>
+      <Header />
       <Stylewrapper>
         <h1>Welcome to lvlCub! Please Choose:</h1>
 
@@ -164,7 +166,7 @@ export default function Login() {
 
 const StyledSvg = styled.svg`
   margin: 5%;
-  margin-top: 20vh;
+  margin-top: 10vh;
 `;
 
 // const Wrapper = styled.div`

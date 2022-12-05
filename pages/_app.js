@@ -16,6 +16,7 @@ function MyApp({Component, pageProps}) {
       <Head>
         <title>lvlCub</title>
       </Head>
+
       <UserContextProvider>
         <GlobalStyles />
         <Component {...pageProps} />
