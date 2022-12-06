@@ -56,6 +56,17 @@ export default function addTask() {
 const StyledForm = styled.form`
   text-align: center;
   font-weight: bold;
+  border: 4px solid white;
+  border-radius: 20px;
+  width: min(100% - 2rem, 600px);
+  height: 80vh;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5%;
+  background-color: #fcb8b0;
+  box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
+
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(5, 1fr);
@@ -117,19 +128,8 @@ const StyledForm = styled.form`
 
   input[type="date"] {
     background-color: lightskyblue;
-    font-family: "Roboto Mono", monospace;
     color: white;
     font-size: 18px;
     border: none;
   }
-
-  border: 2px solid black;
-  border-radius: 20px;
-  width: min(100% - 2rem, 600px);
-  height: 80vh;
-  margin-top: 5%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 5%;
-  background-color: salmon;
 `;
