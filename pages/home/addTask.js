@@ -1,29 +1,85 @@
 import styled from "styled-components";
+import {useState} from "react";
 
-export default function addTask() {
+export default function AddTask() {
+  const [task, setTask] = useState({
+    title: "",
+    details: "",
+    image: "",
+    whichOne: "",
+    until: "",
+    gold: 0,
+    experience: 0,
+  });
+
+  function handle(e) {
+    const newData = {...task};
+
+    newData[e.target.id] = e.target.value;
+
+    setTask(newData);
+
+    console.log(newData);
+  }
+
+  const submitTask = async () => {
+    const response = await fetch("/api/tasks", {
+      method: "POST",
+      body: JSON.stringify(task),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+  };
   return (
-    <StyledForm>
+    <StyledForm
+
+    //   onSubmit={e => submit(e)}
+    >
+      {/*-----------title----------- */}
+
       <div className="title">
         <label htmlFor="title">Title</label>
         <input
+          onChange={e => handle(e)}
           type="text"
           name="title"
+          id="title"
           placeholder="what should your task be called?"
           required
         ></input>
       </div>
-      <div className="description">
-        <label htmlFor="description">Description</label>
+
+      {/*-----------details----------- */}
+
+      <div className="details">
+        <label htmlFor="details">Details</label>
         <input
+          onChange={e => handle(e)}
           type="text"
-          name="description"
+          name="details"
+          id="details"
           placeholder="are there details to your task?"
         ></input>
       </div>
+
+      {/*-----------file----------- */}
+
       <div className="fileUpload">
         <label htmlFor="picture">Choose a picture</label>
-        <input type="file" name="picture" placeholder="Add a picture"></input>
+        <input
+          onChange={e => handle(e)}
+          type="file"
+          name="picture"
+          id="image"
+          placeholder="Add a picture"
+        ></input>
       </div>
+
+      {/*-----------checkboxes----------- */}
+
       <div className="checkboxes">
         <fieldset>
           <legend>general task or for one specific child?</legend>
@@ -33,20 +89,44 @@ export default function addTask() {
           <input type="checkbox" name="first"></input>
         </fieldset>
       </div>
+
+      {/*-----------calendar----------- */}
+
       <div className="calendar">
         <label htmlFor="until">by when should it be done?</label>
-        <input type="date" name="until"></input>
+        <input
+          onChange={e => handle(e)}
+          type="date"
+          name="until"
+          id="until"
+        ></input>
       </div>
+
+      {/*-----------rewards----------- */}
+
       <div className="rewards">
         <fieldset>
           <legend>Rewards:</legend>
           <label htmlFor="gold">Gold</label>
-          <input name="gold" type="text"></input>
+          <input
+            onChange={e => handle(e)}
+            name="gold"
+            type="number"
+            id="gold"
+          ></input>
           <label htmlFor="experience">Experience</label>
-          <input name="experience" type="text"></input>
+          <input
+            onChange={e => handle(e)}
+            name="experience"
+            type="number"
+            id="experience"
+          ></input>
         </fieldset>
       </div>
-      <button className="submitButton" type="submit">
+
+      {/*-----------submit----------- */}
+
+      <button onClick={submitTask} className="submitButton" type="submit">
         Create Task!
       </button>
     </StyledForm>
@@ -76,7 +156,7 @@ const StyledForm = styled.form`
   .title {
     grid-area: 1 / 1 / 2 / 3;
   }
-  .description {
+  .details {
     grid-area: 2 / 1 / 3 / 3;
   }
   .fileUpload {
@@ -111,6 +191,14 @@ const StyledForm = styled.form`
   }
 
   input[type="text"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 2%;
+  }
+
+  input[type="number"] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
