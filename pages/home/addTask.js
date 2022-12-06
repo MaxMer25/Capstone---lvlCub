@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {useState} from "react";
 
 export default function AddTask() {
+  const [popup, setPopup] = useState(false);
   const [task, setTask] = useState({
     title: "",
     details: "",
@@ -23,113 +24,120 @@ export default function AddTask() {
   }
 
   const submitTask = async () => {
-    const response = await fetch("/api/tasks", {
+    await fetch("/api/tasks", {
       method: "POST",
       body: JSON.stringify(task),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    const data = await response.json();
-    console.log(data);
   };
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    await submitTask();
+    setPopup(!popup);
+  }
+
   return (
-    <StyledForm
+    <div>
+      <StyledForm>
+        {/*-----------title----------- */}
 
-    //   onSubmit={e => submit(e)}
-    >
-      {/*-----------title----------- */}
-
-      <div className="title">
-        <label htmlFor="title">Title</label>
-        <input
-          onChange={e => handle(e)}
-          type="text"
-          name="title"
-          id="title"
-          placeholder="what should your task be called?"
-          required
-        ></input>
-      </div>
-
-      {/*-----------details----------- */}
-
-      <div className="details">
-        <label htmlFor="details">Details</label>
-        <input
-          onChange={e => handle(e)}
-          type="text"
-          name="details"
-          id="details"
-          placeholder="are there details to your task?"
-        ></input>
-      </div>
-
-      {/*-----------file----------- */}
-
-      <div className="fileUpload">
-        <label htmlFor="picture">Choose a picture</label>
-        <input
-          onChange={e => handle(e)}
-          type="file"
-          name="picture"
-          id="image"
-          placeholder="Add a picture"
-        ></input>
-      </div>
-
-      {/*-----------checkboxes----------- */}
-
-      <div className="checkboxes">
-        <fieldset>
-          <legend>general task or for one specific child?</legend>
-          <label htmlFor="general">General</label>
-          <input type="checkbox" name="general" checked></input>
-          <label htmlFor="first">First Child</label>
-          <input type="checkbox" name="first"></input>
-        </fieldset>
-      </div>
-
-      {/*-----------calendar----------- */}
-
-      <div className="calendar">
-        <label htmlFor="until">by when should it be done?</label>
-        <input
-          onChange={e => handle(e)}
-          type="date"
-          name="until"
-          id="until"
-        ></input>
-      </div>
-
-      {/*-----------rewards----------- */}
-
-      <div className="rewards">
-        <fieldset>
-          <legend>Rewards:</legend>
-          <label htmlFor="gold">Gold</label>
+        <div className="title">
+          <label htmlFor="title">Title</label>
           <input
             onChange={e => handle(e)}
-            name="gold"
-            type="number"
-            id="gold"
+            type="text"
+            name="title"
+            id="title"
+            placeholder="what should your task be called?"
+            required
           ></input>
-          <label htmlFor="experience">Experience</label>
+        </div>
+
+        {/*-----------details----------- */}
+
+        <div className="details">
+          <label htmlFor="details">Details</label>
           <input
             onChange={e => handle(e)}
-            name="experience"
-            type="number"
-            id="experience"
+            type="text"
+            name="details"
+            id="details"
+            placeholder="are there details to your task?"
           ></input>
-        </fieldset>
-      </div>
+        </div>
 
-      {/*-----------submit----------- */}
+        {/*-----------file----------- */}
 
-      <button onClick={submitTask} className="submitButton" type="submit">
-        Create Task!
-      </button>
-    </StyledForm>
+        <div className="fileUpload">
+          <label htmlFor="picture">Choose a picture</label>
+          <input
+            onChange={e => handle(e)}
+            type="file"
+            name="picture"
+            id="image"
+            placeholder="Add a picture"
+          ></input>
+        </div>
+
+        {/*-----------checkboxes----------- */}
+
+        <div className="checkboxes">
+          <fieldset>
+            <legend>general task or for one specific child?</legend>
+            <label htmlFor="general">General</label>
+            <input type="checkbox" name="general" checked></input>
+            <label htmlFor="first">First Child</label>
+            <input type="checkbox" name="first"></input>
+          </fieldset>
+        </div>
+
+        {/*-----------calendar----------- */}
+
+        <div className="calendar">
+          <label htmlFor="until">by when should it be done?</label>
+          <input
+            onChange={e => handle(e)}
+            type="date"
+            name="until"
+            id="until"
+          ></input>
+        </div>
+
+        {/*-----------rewards----------- */}
+
+        <div className="rewards">
+          <fieldset>
+            <legend>Rewards:</legend>
+            <label htmlFor="gold">Gold</label>
+            <input
+              onChange={e => handle(e)}
+              name="gold"
+              type="number"
+              id="gold"
+              required
+            ></input>
+            <label htmlFor="experience">Experience</label>
+            <input
+              onChange={e => handle(e)}
+              name="experience"
+              type="number"
+              id="experience"
+              required
+            ></input>
+          </fieldset>
+        </div>
+
+        {/*-----------submit----------- */}
+
+        <button onClick={handleSubmit} className="submitButton" type="submit">
+          Create Task!
+        </button>
+        {popup ? <div>Great Success!</div> : null}
+      </StyledForm>
+    </div>
   );
 }
 
