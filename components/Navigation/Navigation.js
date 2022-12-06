@@ -68,15 +68,17 @@ const StyledNavigation = styled.nav`
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 12%;
+  min-height: 10%;
+  max-height: 100px;
   background-color: #ff6542;
 
   ul {
     list-style-type: none;
     display: flex;
+    justify-content: space-between;
   }
 `;
 
 const StyledLink = styled(Link)`
-  margin-right: auto;
+  margin-right: 10vw;
 `;

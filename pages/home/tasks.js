@@ -3,6 +3,7 @@ import {useState, useEffect} from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import Header from "../../components/Header/Header";
 
 export default function Home() {
   const [tasks, setTasks] = useState([]);
@@ -53,12 +54,14 @@ export default function Home() {
       <Head>
         <title>Home Taskboard</title>
       </Head>
-      <ul>
+      <Header />
+      <StyledList>
         {tasks.map(task => {
           return (
-            <StyledList key={task._id}>
+            <StyledListElements key={task._id}>
               <h2>{task.title}</h2>
               <StyledImage
+                priority={true}
                 width={175}
                 height={122}
                 src={task.image}
@@ -72,46 +75,53 @@ export default function Home() {
               <Link href={`/home/${task._id}`}>
                 <StyledDetailsButton>Details</StyledDetailsButton>
               </Link>
-            </StyledList>
+            </StyledListElements>
           );
         })}
-      </ul>
+      </StyledList>
     </div>
   );
 }
 
-const StyledList = styled.li`
+const StyledList = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  width: 90vw;
+  padding-bottom: 15vh;
+`;
+
+const StyledListElements = styled.div`
   text-align: center;
-  list-style: none;
-  margin-top: 10%;
+  border: 4px solid #78290f;
+  border-radius: 8%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   isolation: isolate;
-  background: #e1dfe1;
-  border: 2px solid #78290f;
-  border-radius: 8px;
-  width: min(100% - 2rem, 600px);
-  padding: 10px;
+  background: #fff4e6;
+  margin-top: 10%;
+  padding: 5%;
+  gap: 5%;
 
   h2 {
-    padding: 6px 40px;
-    gap: 6px;
+    padding: 4% 4%;
     background: #ebebf0;
-    border-radius: 100px;
+    border-radius: 2rem;
     width: relative;
     height: fit-content;
     grid-area: 1 / 1 / 2 / 3;
+    -webkit-box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
   }
 `;
 
 const StyledGoldContainer = styled.div`
-  border: 1px solid black;
+  border: 3px solid black;
   text-align: center;
   background: #d89848;
-  border-radius: 39.5px;
+  border-radius: 20%;
   grid-area: 2 / 2 / 3 / 3;
 `;
 
@@ -120,7 +130,7 @@ const StyledImage = styled(Image)`
 `;
 
 const StyledDetailsButton = styled.button`
-  border-radius: 20px;
+  border-radius: 2rem;
   position: relative;
   left: 45%;
   bottom: -100%;
