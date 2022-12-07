@@ -1,11 +1,10 @@
-import React, {createContext, useState} from "react";
+import React, {createContext} from "react";
+import {useLocalStorage} from "../hooks/useLocalStorage";
 
 export const UserContext = createContext();
+
 export function UserContextProvider({children}) {
-  const [user, setUser] = useState({type: "notSet"});
-  React.useEffect(() => {
-    localStorage.setItem("usertype", JSON.stringify(user.type));
-  });
+  const [user, setUser] = useLocalStorage("user", "notSet");
   return (
     <UserContext.Provider value={{user, setUser}}>
       {children}

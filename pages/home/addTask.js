@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {useState} from "react";
+import {Button} from "@mui/material";
 
 export default function AddTask() {
   const [popup, setPopup] = useState(false);
@@ -39,8 +40,12 @@ export default function AddTask() {
     setPopup(!popup);
   }
 
+  const resetPopup = () => {
+    setPopup(false);
+  };
+
   return (
-    <div>
+    <StyledFlex>
       <StyledForm>
         {/*-----------title----------- */}
 
@@ -135,15 +140,31 @@ export default function AddTask() {
         <button onClick={handleSubmit} className="submitButton" type="submit">
           Create Task!
         </button>
-        {popup ? <div>Great Success!</div> : null}
       </StyledForm>
-    </div>
+      {popup && (
+        <StyledPopup>
+          <h1>That worked! You added one Task.</h1>
+          <h2>Do you want to add another task?</h2>
+          <Button href="/home/tasks" className="homeButton" variant="contained">
+            Home
+          </Button>
+          <Button
+            onClick={resetPopup}
+            className="addButton"
+            variant="contained"
+          >
+            Add another one
+          </Button>
+        </StyledPopup>
+      )}
+    </StyledFlex>
   );
 }
 
 const StyledForm = styled.form`
   text-align: center;
   font-weight: bold;
+  font-size: 1.3em;
   border: 4px solid white;
   border-radius: 20px;
   width: min(100% - 2rem, 600px);
@@ -228,4 +249,29 @@ const StyledForm = styled.form`
     font-size: 18px;
     border: none;
   }
+`;
+
+const StyledPopup = styled.div`
+  position: absolute;
+  visibility: visible;
+  font-size: 18px;
+  width: 85%;
+  height: 40vh;
+  text-align: center;
+  font-weight: bold;
+  border: 4px solid white;
+  border-radius: 20px;
+  padding: 5%;
+  background-color: lightgreen;
+  box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
+  .homeButton {
+    margin-right: 10%;
+    background-color: tomato;
+  }
+`;
+
+const StyledFlex = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
