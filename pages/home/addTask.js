@@ -14,14 +14,10 @@ export default function AddTask() {
     experience: 0,
   });
 
-  function handle(e) {
+  function handle(event) {
     const newData = {...task};
-
-    newData[e.target.id] = e.target.value;
-
+    newData[event.target.id] = event.target.value;
     setTask(newData);
-
-    console.log(newData);
   }
 
   const submitTask = async () => {
@@ -34,8 +30,8 @@ export default function AddTask() {
     });
   };
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit(event) {
+    event.preventDefault();
     await submitTask();
     setPopup(!popup);
   }
@@ -52,7 +48,7 @@ export default function AddTask() {
         <div className="title">
           <label htmlFor="title">Title</label>
           <input
-            onChange={e => handle(e)}
+            onChange={event => handle(event)}
             type="text"
             name="title"
             id="title"
@@ -66,7 +62,7 @@ export default function AddTask() {
         <div className="details">
           <label htmlFor="details">Details</label>
           <input
-            onChange={e => handle(e)}
+            onChange={event => handle(event)}
             type="text"
             name="details"
             id="details"
@@ -79,7 +75,7 @@ export default function AddTask() {
         <div className="fileUpload">
           <label htmlFor="picture">Choose a picture</label>
           <input
-            onChange={e => handle(e)}
+            onChange={event => handle(event)}
             type="file"
             name="picture"
             id="image"
@@ -104,7 +100,7 @@ export default function AddTask() {
         <div className="calendar">
           <label htmlFor="until">by when should it be done?</label>
           <input
-            onChange={e => handle(e)}
+            onChange={event => handle(event)}
             type="date"
             name="until"
             id="until"
@@ -118,7 +114,7 @@ export default function AddTask() {
             <legend>Rewards:</legend>
             <label htmlFor="gold">Gold</label>
             <input
-              onChange={e => handle(e)}
+              onChange={event => handle(event)}
               name="gold"
               type="number"
               id="gold"
@@ -126,7 +122,7 @@ export default function AddTask() {
             ></input>
             <label htmlFor="experience">Experience</label>
             <input
-              onChange={e => handle(e)}
+              onChange={event => handle(event)}
               name="experience"
               type="number"
               id="experience"
@@ -246,7 +242,7 @@ const StyledForm = styled.form`
   input[type="date"] {
     background-color: lightskyblue;
     color: white;
-    font-size: 18px;
+    font-size: 1.1em;
     border: none;
   }
 `;
@@ -254,7 +250,7 @@ const StyledForm = styled.form`
 const StyledPopup = styled.div`
   position: absolute;
   visibility: visible;
-  font-size: 18px;
+  font-size: 1.1em;
   width: 85%;
   height: 40vh;
   text-align: center;

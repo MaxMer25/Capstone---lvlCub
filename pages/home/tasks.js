@@ -36,7 +36,7 @@ export default function Home() {
   }, [shouldReload]);
 
   return (
-    <div>
+    <>
       <Head>
         <title>Home Taskboard</title>
       </Head>
@@ -134,7 +134,7 @@ export default function Home() {
           </StyledSvg>
         </Link>
       )}
-    </div>
+    </>
   );
 }
 
