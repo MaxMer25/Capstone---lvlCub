@@ -1,7 +1,7 @@
 [
   {
     "title": "Zimmer aufräumen",
-    "image": "/image/roomexample.png",
+    "image": "/examples/roomexample.png",
     "whichOne": "Max",
     "details": "Bitte auch staubsaugen",
     "gold": 100,
@@ -9,7 +9,7 @@
   },
   {
     "title": "Mit dem Hund rausgehen",
-    "image": "/image/dogJPG.jpg",
+    "image": "/examples/dogJPG.jpg",
     "whichOne": "Jurian",
     "details": "Lass ihn an der Leine",
     "gold": 250,
@@ -17,7 +17,7 @@
   },
   {
     "title": "Einkaufen",
-    "image": "/image/groceryexample.png",
+    "image": "/examples/groceryexample.png",
     "whichOne": "Alrike",
     "details": "Bitte Hundefutter mitbringen",
     "gold": 150,

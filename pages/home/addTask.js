@@ -200,8 +200,8 @@ const StyledForm = styled.form`
     grid-area: 5 / 1 / 6 / 3;
     width: 50%;
     height: 50%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 2%;
+    margin: 2%;
     box-sizing: border-box;
     border-radius: 2%;
     margin-left: auto;
@@ -217,23 +217,23 @@ const StyledForm = styled.form`
 
   input[type="text"] {
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 5%;
+    margin: 2%;
     box-sizing: border-box;
     border-radius: 2%;
   }
 
   input[type="number"] {
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 5%;
+    margin: 2%;
     box-sizing: border-box;
     border-radius: 2%;
   }
   input[type="file"] {
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 5%;
+    margin: 2%;
     box-sizing: border-box;
     border-radius: 2%;
     color: rgba(0, 0, 0, 0);
