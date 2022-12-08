@@ -18,6 +18,9 @@ async function handler(req, res) {
           image: req.body.image,
           whichOne: req.body.whichOne,
           details: req.body.details,
+          gold: req.body.gold,
+          experience: req.body.experience,
+          until: req.body.until,
         });
         await newTask.save();
         res.status(200).json(newTask);

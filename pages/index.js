@@ -22,7 +22,7 @@ export default function Login() {
           xmlns="http://www.w3.org/2000/svg"
           onClick={async () => {
             const user = await loginParent();
-            setUser(user);
+            setUser(user.type);
             alert(`Hello ${user.type}`);
           }}
         >
@@ -125,7 +125,7 @@ export default function Login() {
           xmlns="http://www.w3.org/2000/svg"
           onClick={async () => {
             const user = await loginChild();
-            setUser(user);
+            setUser(user.type);
             alert(`Hello ${user.type}`);
           }}
         >
