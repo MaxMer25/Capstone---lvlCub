@@ -20,7 +20,23 @@
     "image": "/examples/groceryexample.png",
     "whichOne": "Alrike",
     "details": "Bitte Hundefutter mitbringen",
+    "gold": 350,
+    "experience": 150
+  },
+  {
+    "title": "Blumen gießen",
+    "image": "/examples/flowerexample.png",
+    "whichOne": "Peter",
+    "details": "Nicht zu viel gießen",
+    "gold": 100,
+    "experience": 100
+  },
+  {
+    "title": "Wäsche zusammenlegen",
+    "image": "/examples/clothesexample.png",
+    "whichOne": "Tina",
+    "details": "",
     "gold": 150,
-    "experience": 50
+    "experience": 150
   }
 ]

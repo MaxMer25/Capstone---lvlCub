@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Eine Stunde mehr Internet",
+    "cost": 100,
+    "image": "/examples/internetexample.png",
+    "maxPerDay": 1
+  },
+  {
+    "title": "Eine Stunde länger aufbleiben",
+    "cost": 100,
+    "image": "/examples/awakeexample.png",
+    "maxPerDay": 1
+  },
+  {
+    "title": "Dein Lieblingsgericht",
+    "cost": 300,
+    "image": "/examples/foodexample.png",
+    "maxPerDay": 1
+  },
+  {
+    "title": "Dein Lieblingsnachtisch",
+    "cost": 300,
+    "image": "/examples/cookiesexample.png",
+    "maxPerDay": 1
+  },
+  {
+    "title": "Einen Kinofilm gemeinsam schauen",
+    "cost": 1000,
+    "image": "/examples/cinemaexample.png",
+    "maxPerDay": 1
+  },
+  {
+    "title": "Ein Besuch im Zoo",
+    "cost": 1000,
+    "image": "/examples/zooexample.png",
+    "maxPerDay": 1
+  }
+]
