@@ -6,7 +6,7 @@ export default function Navigation() {
   const router = useRouter();
   return (
     <footer>
-      <StyledNavigation>
+      <StyledNavigation role="navigation">
         <ul>
           <StyledLink href={"/"}>
             <svg

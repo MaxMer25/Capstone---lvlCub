@@ -19,7 +19,7 @@
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.17",
-    "@next/font": "^13.0.6",
+    "@next/font": "13.0.4",
     "axios": "^1.2.1",
     "mongoose": "^6.7.3",
     "multer": "^1.4.5-lts.1",

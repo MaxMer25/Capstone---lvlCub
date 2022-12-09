@@ -1,12 +1,12 @@
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Reward from "../pages/reward";
+import Header from "../components/Header/Header";
 
 describe("Home", () => {
   it("renders home h1", () => {
-    render(<Reward />);
+    render(<Header />);
 
-    const heading = screen.getByRole("heading");
+    const heading = screen.getByRole("img");
 
     expect(heading).toBeInTheDocument();
   });

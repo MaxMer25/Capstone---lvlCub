@@ -42,6 +42,7 @@ export default function Reward() {
         <title>Rewards</title>
       </Head>
       <Header />
+
       <StyledLoading>
         {load && (
           <div className="loadingParent">
