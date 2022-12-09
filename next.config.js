@@ -7,6 +7,16 @@ const nextConfig = {
   eslint: {
     dirs: ["pages", "components", "styles"],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "via.placeholder.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

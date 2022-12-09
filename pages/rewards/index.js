@@ -68,7 +68,7 @@ export default function Reward() {
           })}
         </StyledList>
         {user === "Parent" && (
-          <Link href="/home/addTask">
+          <Link href="/rewards/addReward">
             <StyledSvg
               width="72"
               height="72"
@@ -175,6 +175,7 @@ const StyledSvg = styled.svg`
   right: 0;
   margin-left: auto;
   margin-right: auto;
+  z-index: 1;
 `;
 
 const StyledLoading = styled.div`

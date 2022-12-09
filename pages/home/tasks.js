@@ -209,6 +209,7 @@ const StyledSvg = styled.svg`
   right: 0;
   margin-left: auto;
   margin-right: auto;
+  z-index: 1;
 `;
 
 const StyledLoading = styled.div`
