@@ -10,16 +10,19 @@ export default function Home() {
   const {user} = useContext(UserContext);
   const [tasks, setTasks] = useState([]);
   const [shouldReload, setShouldReload] = useState(true);
+  const [load, setLoad] = useState(false);
 
   // get data
 
   useEffect(() => {
     const getTasks = async () => {
       try {
-        const response = await fetch("/api/tasks");
+        setLoad(!load);
+        const response = await fetch("/api/tasks/");
         if (response.ok) {
           const data = await response.json();
           setTasks(data);
+          setLoad(false);
         } else {
           throw new Error(
             `Fetch fehlgeschlagen mit Status: ${response.status}`
@@ -41,6 +44,14 @@ export default function Home() {
         <title>Home Taskboard</title>
       </Head>
       <Header />
+      <StyledLoading>
+        {load && (
+          <div className="loadingParent">
+            <div class="custom-loader"></div>
+            <h2>Loading your Tasks, sit tight!</h2>
+          </div>
+        )}
+      </StyledLoading>
       <StyledList>
         {tasks.map(task => {
           return (
@@ -142,7 +153,7 @@ const StyledList = styled.div`
   margin-left: auto;
   margin-right: auto;
   width: 90vw;
-  padding-bottom: 15vh;
+  padding-bottom: 30vh;
 `;
 
 const StyledListElements = styled.div`
@@ -198,4 +209,46 @@ const StyledSvg = styled.svg`
   right: 0;
   margin-left: auto;
   margin-right: auto;
+  z-index: 1;
+`;
+
+const StyledLoading = styled.div`
+  .loadingParent {
+    text-align: center;
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .custom-loader {
+    width: 40px;
+    height: 40px;
+    transform: perspective(150px) rotateX(0) rotateY(0);
+    animation: f3-1 1s infinite linear, f3-2 1.5s infinite linear -0.25s;
+  }
+
+  @keyframes f3-1 {
+    50% {
+      transform: perspective(150px) rotateX(180deg) rotateY(0);
+    }
+    100% {
+      transform: perspective(150px) rotateX(180deg) rotateY(180deg);
+    }
+  }
+
+  @keyframes f3-2 {
+    0%,
+    33% {
+      background: #ff6978;
+    }
+    33.1%,
+    66% {
+      background: #b1ede8;
+    }
+    66.1%,
+    100% {
+      background: #fffcf9;
+    }
+  }
 `;

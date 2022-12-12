@@ -7,23 +7,18 @@ const TaskSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: false,
   },
   whichOne: {
     type: String,
-    required: false,
   },
   details: {
     type: String,
-    required: false,
   },
   gold: {
     type: String,
-    required: false,
   },
   experience: {
     type: String,
-    required: false,
   },
 });
 

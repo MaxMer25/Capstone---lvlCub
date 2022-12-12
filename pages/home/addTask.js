@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import {useState} from "react";
 import {Button} from "@mui/material";
+import Image from "next/image";
 
 export default function AddTask() {
+  const [file, setFile] = useState();
   const [popup, setPopup] = useState(false);
   const [task, setTask] = useState({
     title: "",
@@ -13,6 +15,10 @@ export default function AddTask() {
     gold: 0,
     experience: 0,
   });
+
+  function handleChange(event) {
+    setFile(URL.createObjectURL(event.target.files[0]));
+  }
 
   function handle(event) {
     const newData = {...task};
@@ -75,12 +81,18 @@ export default function AddTask() {
         <div className="fileUpload">
           <label htmlFor="picture">Choose a picture</label>
           <input
-            onChange={event => handle(event)}
+            onChange={handleChange}
             type="file"
             name="picture"
             id="image"
             placeholder="Add a picture"
           ></input>
+          <Image
+            src={file}
+            alt="Preview of uploaded picture"
+            width={150}
+            height={125}
+          />
         </div>
 
         {/*-----------checkboxes----------- */}
@@ -137,22 +149,17 @@ export default function AddTask() {
           Create Task!
         </button>
       </StyledForm>
-      {popup && (
-        <StyledPopup>
-          <h1>That worked! You added one Task.</h1>
-          <h2>Do you want to add another task?</h2>
-          <Button href="/home/tasks" className="homeButton" variant="contained">
-            Home
-          </Button>
-          <Button
-            onClick={resetPopup}
-            className="addButton"
-            variant="contained"
-          >
-            Add another one
-          </Button>
-        </StyledPopup>
-      )}
+
+      <StyledPopup popup={popup}>
+        <h1>That worked! You added one Task.</h1>
+        <h2>Do you want to add another task?</h2>
+        <Button href="/rewards" className="homeButton" variant="contained">
+          Home
+        </Button>
+        <Button onClick={resetPopup} className="addButton" variant="contained">
+          Add another one
+        </Button>
+      </StyledPopup>
     </StyledFlex>
   );
 }
@@ -215,7 +222,8 @@ const StyledForm = styled.form`
     padding: 0 1em;
   }
 
-  input[type="text"] {
+  input[type="text"],
+  [type="number"] {
     width: 100%;
     padding: 5%;
     margin: 2%;
@@ -223,13 +231,6 @@ const StyledForm = styled.form`
     border-radius: 2%;
   }
 
-  input[type="number"] {
-    width: 100%;
-    padding: 5%;
-    margin: 2%;
-    box-sizing: border-box;
-    border-radius: 2%;
-  }
   input[type="file"] {
     width: 100%;
     padding: 5%;
@@ -249,7 +250,6 @@ const StyledForm = styled.form`
 
 const StyledPopup = styled.div`
   position: absolute;
-  visibility: visible;
   font-size: 1.1em;
   width: 85%;
   height: 40vh;
@@ -259,11 +259,13 @@ const StyledPopup = styled.div`
   border-radius: 20px;
   padding: 5%;
   background-color: lightgreen;
+  transition: 1s;
   box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
   .homeButton {
     margin-right: 10%;
     background-color: tomato;
   }
+  ${props => (props.popup ? "display: block;" : "display: none;")}
 `;
 
 const StyledFlex = styled.div`
