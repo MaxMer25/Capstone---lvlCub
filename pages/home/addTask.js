@@ -250,7 +250,6 @@ const StyledForm = styled.form`
 
 const StyledPopup = styled.div`
   position: absolute;
-  z-index: -1;
   font-size: 1.1em;
   width: 85%;
   height: 40vh;
@@ -266,7 +265,7 @@ const StyledPopup = styled.div`
     margin-right: 10%;
     background-color: tomato;
   }
-  ${props => (props.popup ? "display: block; z-index: 2;" : "display: none;")}
+  ${props => (props.popup ? "display: block;" : "display: none;")}
 `;
 
 const StyledFlex = styled.div`
