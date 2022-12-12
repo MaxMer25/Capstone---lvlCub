@@ -160,7 +160,7 @@ const StyledForm = styled.form`
 
 const StyledPopup = styled.div`
   position: absolute;
-  opacity: 0;
+  display: contents;
   z-index: -1;
   font-size: 1.1em;
   width: 85%;
@@ -177,5 +177,5 @@ const StyledPopup = styled.div`
     margin-right: 10%;
     background-color: tomato;
   }
-  ${props => (props.popup ? "opacity: 1; z-index: 2;" : "")}
+  ${props => (props.popup ? "display: none; z-index: 2;" : "")}
 `;
