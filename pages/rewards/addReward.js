@@ -8,7 +8,8 @@ export default function AddReward() {
   const [file, setFile] = useState();
   const [reward, setReward] = useState({
     title: "",
-    image: "",
+    image:
+      "https://via.placeholder.com/150x125/FFFF00/000000?text=Placeholder+Image",
     cost: "",
     maxPerDay: "",
   });
@@ -89,11 +90,7 @@ export default function AddReward() {
         <StyledPopup popup={popup}>
           <h1>That worked! You added one Reward.</h1>
           <h2>Do you want to add another Reward?</h2>
-          <Button
-            href="/home/tasks"
-            className="rewardButton"
-            variant="contained"
-          >
+          <Button href="/rewards" className="rewardButton" variant="contained">
             Rewards
           </Button>
           <Button
