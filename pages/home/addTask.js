@@ -9,8 +9,7 @@ export default function AddTask() {
   const [task, setTask] = useState({
     title: "",
     details: "",
-    image:
-      "https://via.placeholder.com/150x125/FFFF00/000000?text=Placeholder+Image",
+    image: "",
     whichOne: "",
     until: "",
     gold: 0,
@@ -251,7 +250,6 @@ const StyledForm = styled.form`
 
 const StyledPopup = styled.div`
   position: absolute;
-  display: contents;
   z-index: -1;
   font-size: 1.1em;
   width: 85%;
@@ -268,7 +266,7 @@ const StyledPopup = styled.div`
     margin-right: 10%;
     background-color: tomato;
   }
-  ${props => (props.popup ? "display: none; z-index: 2;" : "")}
+  ${props => (props.popup ? "display: block; z-index: 2;" : "display: none;")}
 `;
 
 const StyledFlex = styled.div`

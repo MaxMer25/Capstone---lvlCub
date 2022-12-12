@@ -8,8 +8,7 @@ export default function AddReward() {
   const [file, setFile] = useState();
   const [reward, setReward] = useState({
     title: "",
-    image:
-      "https://via.placeholder.com/150x125/FFFF00/000000?text=Placeholder+Image",
+    image: "",
     cost: "",
     maxPerDay: "",
   });
@@ -160,7 +159,6 @@ const StyledForm = styled.form`
 
 const StyledPopup = styled.div`
   position: absolute;
-  display: contents;
   z-index: -1;
   font-size: 1.1em;
   width: 85%;
@@ -177,5 +175,5 @@ const StyledPopup = styled.div`
     margin-right: 10%;
     background-color: tomato;
   }
-  ${props => (props.popup ? "display: none; z-index: 2;" : "")}
+  ${props => (props.popup ? "display: block; z-index: 2;" : "display: none;")}
 `;
