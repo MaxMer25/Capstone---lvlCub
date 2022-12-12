@@ -11,11 +11,9 @@ const RewardSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: false,
   },
   maxPerDay: {
     type: Number,
-    required: false,
   },
 });
 

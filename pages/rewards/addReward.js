@@ -15,7 +15,6 @@ export default function AddReward() {
   });
 
   function handleChange(event) {
-    console.log(event.target.files);
     setFile(URL.createObjectURL(event.target.files[0]));
   }
 
