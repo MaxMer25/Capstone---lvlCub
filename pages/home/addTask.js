@@ -21,11 +21,6 @@ export default function AddTask() {
     setFile(URL.createObjectURL(event.target.files[0]));
   }
 
-  // function handleFile(event) {
-  //   handle(event);
-  //   handleChange(event);
-  // }
-
   function handle(event) {
     const newData = {...task};
     newData[event.target.id] = event.target.value;
