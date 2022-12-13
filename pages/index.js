@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from "react";
 import styled from "styled-components";
 import Header from "../components/Header/Header";
-import ChildIcon from "../components/childIcon";
+import ChildIcon from "../components/ChildIcon";
 import ParentIcon from "../components/ParentIcon";
 import {UserContext} from "../components/UserContext";
 import {LoadingAnimation} from "../components/LoadingAnimation";
