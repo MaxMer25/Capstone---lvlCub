@@ -15,7 +15,7 @@ export const LoadingAnimation = () => {
 const StyledLoading = styled.div`
   .loadingParent {
     text-align: center;
-    margin-top: 20vh;
+    margin-top: 10vh;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -70,7 +70,7 @@ export default function Home() {
           );
         })}
       </StyledList>
-      {user === "Parent" && (
+      {user.type === "Parent" && (
         <Link href="/home/addTask">
           <StyledSvg
             width="72"

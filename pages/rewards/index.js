@@ -62,7 +62,7 @@ export default function Reward() {
             );
           })}
         </StyledList>
-        {user === "Parent" && (
+        {user.type === "Parent" && (
           <Link href="/rewards/addReward">
             <StyledSvg
               width="72"

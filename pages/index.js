@@ -8,7 +8,7 @@ import {LoadingAnimation} from "../components/LoadingAnimation";
 import {Button} from "@mui/material";
 
 export default function Login() {
-  const {user, setUser, setId} = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
   const [popup, setPopup] = useState(false);
   const [load, setLoad] = useState(false);
   const [fetchUser, setFetchUser] = useState([]);
@@ -73,9 +73,27 @@ export default function Login() {
       <Header />
       <StyleWrapper>
         <h1>Welcome to lvlCub! Please Choose:</h1>
-        <ParentIcon />
+        <StyledParentContainer>
+          {fetchUser.map(u => {
+            if (u.type === "Parent") {
+              return (
+                <div
+                  className="parentContainer"
+                  key={u._id}
+                  onClick={() => {
+                    setUser({type: "Parent", id: u._id});
+                    alert(`Hello ${u.name}`);
+                  }}
+                >
+                  <p>{u.name}</p>
+                  <ParentIcon />
+                </div>
+              );
+            }
+          })}
+        </StyledParentContainer>
         <br></br>
-        {user === "Parent" && (
+        {user.type === "Parent" && (
           <Button variant="contained" onClick={addChildren}>
             Add Children!
           </Button>
@@ -104,8 +122,7 @@ export default function Login() {
                 <div
                   key={u._id}
                   onClick={() => {
-                    setId(u._id);
-                    setUser(u.type);
+                    setUser({type: "Child", id: u._id});
                     alert(`Hello ${u.name}`);
                   }}
                 >
@@ -163,5 +180,12 @@ const StyledPopup = styled.div`
   .textInput {
     width: 100%;
     font-size: 1.5em;
+  }
+`;
+
+const StyledParentContainer = styled.div`
+  display: flex;
+  .parentContainer {
+    width: 100%;
   }
 `;
