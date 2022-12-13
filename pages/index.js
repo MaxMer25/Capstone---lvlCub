@@ -4,9 +4,11 @@ import Header from "../components/Header/Header";
 import ChildIcon from "../components/childIcon";
 import ParentIcon from "../components/ParentIcon";
 import {UserContext} from "../components/UserContext";
+import {LoadingAnimation} from "../components/LoadingAnimation";
+import {Button} from "@mui/material";
 
 export default function Login() {
-  const {user} = useContext(UserContext);
+  const {user, setUser, setId} = useContext(UserContext);
   const [popup, setPopup] = useState(false);
   const [load, setLoad] = useState(false);
   const [fetchUser, setFetchUser] = useState([]);
@@ -74,22 +76,39 @@ export default function Login() {
         <ParentIcon />
         <br></br>
         {user === "Parent" && (
-          <button onClick={addChildren}>Add Children!</button>
+          <Button variant="contained" onClick={addChildren}>
+            Add Children!
+          </Button>
         )}
-
+        {load && <LoadingAnimation />}
         <StyledPopup popup={popup}>
           <form onSubmit={handleSubmit}>
             <h2>Name of the child:</h2>
             <label htmlFor="name"></label>
-            <input id="name" name="name" type="text"></input>
-            <button type="submit">Add</button>
+            <input
+              className="textInput"
+              id="name"
+              name="name"
+              type="text"
+            ></input>
+            <Button className="btn" variant="contained" type="submit">
+              Add
+            </Button>
           </form>
         </StyledPopup>
+
         <StyledProfileContainer>
           {fetchUser.map(u => {
             if (u.type === "Child") {
               return (
-                <div key={u._id}>
+                <div
+                  key={u._id}
+                  onClick={() => {
+                    setId(u._id);
+                    setUser(u.type);
+                    alert(`Hello ${u.name}`);
+                  }}
+                >
                   <p>{u.name}</p>
                   <ChildIcon />
                 </div>
@@ -113,8 +132,9 @@ const StyledProfileContainer = styled.div`
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   margin: auto;
-  padding-bottom: 1vh;
+  padding-bottom: 4vh;
   margin-bottom: 14vh;
+  margin-top: 1vh;
   border: 4px solid white;
   border-radius: 20px;
   width: 90vw;
@@ -123,9 +143,10 @@ const StyledProfileContainer = styled.div`
 const StyledPopup = styled.div`
   position: relative;
   margin: auto;
-  font-size: 1.1em;
-  width: 85%;
-  padding: 5%;
+  margin-top: 1vh;
+  font-size: 1.3em;
+  width: 90vw;
+  padding-bottom: 5%;
   font-weight: bold;
   border: 4px solid white;
   border-radius: 20px;
@@ -133,4 +154,14 @@ const StyledPopup = styled.div`
   transition: 1s;
   box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
   ${props => (props.popup ? "display: block;" : "display: none;")}
+
+  .btn {
+    margin-left: 1vh;
+    margin-top: 1vh;
+  }
+
+  .textInput {
+    width: 100%;
+    font-size: 1.5em;
+  }
 `;

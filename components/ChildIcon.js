@@ -1,9 +1,6 @@
-import {loginChild} from "../utils/loginChild";
-import React, {useContext} from "react";
-import {UserContext} from "../components/UserContext";
+import React from "react";
 
 export default function ChildIcon() {
-  const {setUser} = useContext(UserContext);
   return (
     <>
       <svg
@@ -13,11 +10,6 @@ export default function ChildIcon() {
         viewBox="0 0 100 146"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        onClick={async () => {
-          const user = await loginChild();
-          setUser(user.type);
-          alert(`Hello ${user.type}`);
-        }}
       >
         <title>Childicon</title>
         <path

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "../../components/Header/Header";
 import {UserContext} from "../../components/UserContext";
+import {LoadingAnimation} from "../../components/LoadingAnimation";
 
 export default function Home() {
   const {user} = useContext(UserContext);
@@ -44,14 +45,7 @@ export default function Home() {
         <title>Home Taskboard</title>
       </Head>
       <Header />
-      <StyledLoading>
-        {load && (
-          <div className="loadingParent">
-            <div class="custom-loader"></div>
-            <h2>Loading your Tasks, sit tight!</h2>
-          </div>
-        )}
-      </StyledLoading>
+      {load && <LoadingAnimation />}
       <StyledList>
         {tasks.map(task => {
           return (
@@ -210,45 +204,4 @@ const StyledSvg = styled.svg`
   margin-left: auto;
   margin-right: auto;
   z-index: 1;
-`;
-
-const StyledLoading = styled.div`
-  .loadingParent {
-    text-align: center;
-    margin-top: 20vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .custom-loader {
-    width: 40px;
-    height: 40px;
-    transform: perspective(150px) rotateX(0) rotateY(0);
-    animation: f3-1 1s infinite linear, f3-2 1.5s infinite linear -0.25s;
-  }
-
-  @keyframes f3-1 {
-    50% {
-      transform: perspective(150px) rotateX(180deg) rotateY(0);
-    }
-    100% {
-      transform: perspective(150px) rotateX(180deg) rotateY(180deg);
-    }
-  }
-
-  @keyframes f3-2 {
-    0%,
-    33% {
-      background: #ff6978;
-    }
-    33.1%,
-    66% {
-      background: #b1ede8;
-    }
-    66.1%,
-    100% {
-      background: #fffcf9;
-    }
-  }
 `;
