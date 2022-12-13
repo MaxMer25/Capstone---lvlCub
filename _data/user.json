@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Mama",
+    "type": "Parent"
+  },
+  {
+    "name": "Alrike",
+    "type": "Child",
+    "gold": 0,
+    "experience": 0
+  },
+  {
+    "name": "Jurian",
+    "type": "Child",
+    "gold": 0,
+    "experience": 0
+  },
+  {
+    "name": "Max",
+    "type": "Child",
+    "gold": 0,
+    "experience": 0
+  }
+]
