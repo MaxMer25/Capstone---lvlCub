@@ -30,6 +30,15 @@ async function handler(req, res) {
       }
       break;
 
+    case "PATCH":
+      try {
+        const response = await Task.updateOne(req.body.id, req.body.change);
+        res.status(200).json(response);
+      } catch (error) {
+        res.status(500).json({error: error.message});
+      }
+      break;
+
     default:
       return res.status(400).json({error: "method not supported"});
   }

@@ -42,12 +42,16 @@ export default function AddTask() {
   async function handleSubmit(event) {
     event.preventDefault();
     await submitTask();
-    setPopup(!popup);
+    triggerPopup();
   }
 
-  const resetPopup = () => {
-    setPopup(false);
-  };
+  function triggerPopup() {
+    if (popup == true) {
+      setPopup(false);
+    } else {
+      setPopup(true);
+    }
+  }
 
   return (
     <StyledFlex>
@@ -160,7 +164,7 @@ export default function AddTask() {
             Home
           </Button>
           <Button
-            onClick={resetPopup}
+            onClick={triggerPopup}
             className="addButton"
             variant="contained"
           >

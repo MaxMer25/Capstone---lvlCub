@@ -38,11 +38,15 @@ export default function AddReward() {
   async function handleSubmit(event) {
     event.preventDefault();
     await submitReward();
-    setPopup(!popup);
+    triggerPopup();
   }
-  const resetPopup = () => {
-    setPopup(false);
-  };
+  function triggerPopup() {
+    if (popup == true) {
+      setPopup(false);
+    } else {
+      setPopup(true);
+    }
+  }
 
   return (
     <>
@@ -100,7 +104,7 @@ export default function AddReward() {
               Rewards
             </Button>
             <Button
-              onClick={resetPopup}
+              onClick={triggerPopup}
               className="addButton btn"
               variant="contained"
             >

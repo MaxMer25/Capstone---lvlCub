@@ -125,7 +125,7 @@ export default function Login() {
                 <div
                   key={u._id}
                   onClick={() => {
-                    setUser({type: "Child", id: u._id});
+                    setUser({type: "Child", id: u._id, name: u.name});
                     alert(`Hello ${u.name}`);
                   }}
                 >

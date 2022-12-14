@@ -13,6 +13,7 @@ export default function Home() {
   const [tasks, setTasks] = useState([]);
   const [shouldReload, setShouldReload] = useState(true);
   const [load, setLoad] = useState(false);
+  const [popup, setPopup] = useState(false);
 
   // get data
 
@@ -39,6 +40,22 @@ export default function Home() {
       getTasks();
     }
   }, [shouldReload]);
+
+  const handleConfirmation = async taskObject => {
+    const response = await fetch("/api/tasks", {
+      method: "PATCH",
+      body: JSON.stringify(taskObject),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      alert("Task successfully updated!");
+    } else {
+      alert("Update failed");
+    }
+    setPopup(false);
+  };
 
   return (
     <>
@@ -69,12 +86,44 @@ export default function Home() {
                   Details
                 </Button>
               </Link>
-              <Button className="taskButtons" variant="contained">
+              <Button
+                onClick={() =>
+                  setPopup({
+                    id: {_id: task._id},
+                    change: {review: "in review", whoDid: user.name},
+                  })
+                }
+                className="taskButtons"
+                variant="contained"
+              >
                 Check
               </Button>
             </StyledListElements>
           );
         })}
+        {popup && (
+          <StyledPopup>
+            <h2>are you sure?</h2>
+            <Button
+              onClick={() => setPopup(false)}
+              className="btn"
+              color="error"
+              variant="contained"
+            >
+              NO
+            </Button>
+            <Button
+              onClick={() => {
+                handleConfirmation(popup);
+                console.log(popup);
+              }}
+              className="btn"
+              variant="contained"
+            >
+              YES
+            </Button>
+          </StyledPopup>
+        )}
       </StyledList>
       {user.type === "Parent" && (
         <Link href="/home/addTask">
@@ -170,7 +219,6 @@ const StyledListElements = styled.div`
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  isolation: isolate;
   background: #fff4e6;
   margin-top: 10%;
   padding: 5%;
@@ -200,13 +248,6 @@ const StyledImage = styled(Image)`
   grid-area: 2 / 1 / 3 / 2;
 `;
 
-const StyledDetailsButton = styled.button`
-  border-radius: 2rem;
-  position: relative;
-  left: 45%;
-  bottom: -100%;
-`;
-
 const StyledSvg = styled.svg`
   position: fixed;
   bottom: 15%;
@@ -214,5 +255,37 @@ const StyledSvg = styled.svg`
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  z-index: 1;
+`;
+
+const StyledPopup = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 10%;
+  margin-left: 0 auto;
+  margin-top: 1vh;
+  font-size: 1.1em;
+  width: 80%;
+  height: fit-content;
+  text-align: center;
+  font-weight: bold;
+  border: 4px solid white;
+  border-radius: 20px;
+  padding: 5%;
+  background-color: lightgreen;
+  transition: 1s;
+  box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
+  .homeButton {
+    margin-right: 10%;
+    background-color: tomato;
+  }
+
+  .btn {
+    margin-left: 1vh;
+    margin-top: 1vh;
+  }
+
+  .textInput {
+    width: 100%;
+    font-size: 1.5em;
+  }
 `;

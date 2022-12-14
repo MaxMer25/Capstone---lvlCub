@@ -7,6 +7,7 @@ export function UserContextProvider({children}) {
   const [user, setUser] = useLocalStorage("user", {
     type: "",
     id: undefined,
+    name: "",
   });
 
   return (
