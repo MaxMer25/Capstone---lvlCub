@@ -8,7 +8,10 @@ const TaskSchema = new mongoose.Schema({
   image: {
     type: String,
   },
-  whichOne: {
+  forWhom: {
+    type: String,
+  },
+  whoDid: {
     type: String,
   },
   details: {
@@ -18,6 +21,9 @@ const TaskSchema = new mongoose.Schema({
     type: String,
   },
   experience: {
+    type: String,
+  },
+  review: {
     type: String,
   },
 });

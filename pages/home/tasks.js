@@ -6,6 +6,7 @@ import Link from "next/link";
 import Header from "../../components/Header/Header";
 import {UserContext} from "../../components/UserContext";
 import {LoadingAnimation} from "../../components/LoadingAnimation";
+import {Button} from "@mui/material";
 
 export default function Home() {
   const {user} = useContext(UserContext);
@@ -64,8 +65,13 @@ export default function Home() {
                 <p>{task.experience}exp</p>
               </StyledGoldContainer>
               <Link href={`/home/${task._id}`}>
-                <StyledDetailsButton>Details</StyledDetailsButton>
+                <Button className="taskButtons" variant="contained">
+                  Details
+                </Button>
               </Link>
+              <Button className="taskButtons" variant="contained">
+                Check
+              </Button>
             </StyledListElements>
           );
         })}
@@ -148,11 +154,16 @@ const StyledList = styled.div`
   margin-right: auto;
   width: 90vw;
   padding-bottom: 30vh;
+
+  .taskButtons {
+    border-radius: 2rem;
+    bottom: -100%;
+  }
 `;
 
 const StyledListElements = styled.div`
   text-align: center;
-  border: 4px solid #78290f;
+  border: 4px solid white;
   border-radius: 8%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);

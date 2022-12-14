@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {useState} from "react";
 import Image from "next/image";
 import {Button} from "@mui/material";
+import Popup from "../../components/Popup";
 
 export default function AddReward() {
   const [popup, setPopup] = useState(false);
@@ -87,20 +88,26 @@ export default function AddReward() {
             Create Task!
           </button>
         </StyledForm>
-        <StyledPopup popup={popup}>
-          <h1>That worked! You added one Reward.</h1>
-          <h2>Do you want to add another Reward?</h2>
-          <Button href="/rewards" className="rewardButton" variant="contained">
-            Rewards
-          </Button>
-          <Button
-            onClick={resetPopup}
-            className="addButton"
-            variant="contained"
-          >
-            Add another one
-          </Button>
-        </StyledPopup>
+        {popup && (
+          <Popup>
+            <h1>That worked! You added one Reward.</h1>
+            <h2>Do you want to add another Reward?</h2>
+            <Button
+              href="/rewards"
+              className="rewardButton btn"
+              variant="contained"
+            >
+              Rewards
+            </Button>
+            <Button
+              onClick={resetPopup}
+              className="addButton btn"
+              variant="contained"
+            >
+              Add another one
+            </Button>
+          </Popup>
+        )}
       </StyledLayout>
     </>
   );
@@ -152,24 +159,4 @@ const StyledForm = styled.form`
     padding: 5%;
     color: rgba(0, 0, 0, 0);
   }
-`;
-
-const StyledPopup = styled.div`
-  position: absolute;
-  font-size: 1.1em;
-  width: 85%;
-  height: 40vh;
-  text-align: center;
-  font-weight: bold;
-  border: 4px solid white;
-  border-radius: 20px;
-  padding: 5%;
-  background-color: lightgreen;
-  transition: 1s;
-  box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
-  .rewardButton {
-    margin-right: 10%;
-    background-color: tomato;
-  }
-  ${props => (props.popup ? "display: block;" : "display: none;")}
 `;

@@ -2,41 +2,56 @@
   {
     "title": "Zimmer aufräumen",
     "image": "/examples/roomexample.png",
-    "whichOne": "Max",
+    "forWhom": "Max",
+    "whoDid": "Max",
     "details": "Bitte auch staubsaugen",
     "gold": 100,
-    "experience": 50
+    "experience": 50,
+    "until": "DATE",
+    "review": "open"
   },
   {
     "title": "Mit dem Hund rausgehen",
     "image": "/examples/dogJPG.jpg",
-    "whichOne": "Jurian",
+    "forWhom": "Jurian",
+    "whoDid": "Jurian",
     "details": "Lass ihn an der Leine",
     "gold": 250,
-    "experience": 100
+    "experience": 100,
+    "until": "DATE",
+    "review": "in review"
   },
   {
     "title": "Einkaufen",
     "image": "/examples/groceryexample.png",
-    "whichOne": "Alrike",
+    "forWhom": "Alrike",
+    "whoDid": "Alrike",
     "details": "Bitte Hundefutter mitbringen",
     "gold": 350,
-    "experience": 150
+    "experience": 150,
+    "until": "DATE",
+    "review": "in review"
   },
   {
     "title": "Blumen gießen",
     "image": "/examples/flowerexample.png",
-    "whichOne": "Peter",
+    "forWhom": "General",
+    "whoDid": "Max",
     "details": "Nicht zu viel gießen",
     "gold": 100,
-    "experience": 100
+    "experience": 100,
+    "until": "DATE",
+    "review": "in review"
   },
   {
     "title": "Wäsche zusammenlegen",
     "image": "/examples/clothesexample.png",
-    "whichOne": "Tina",
+    "forWhom": "General",
+    "whoDid": "Jurian",
     "details": "",
     "gold": 150,
-    "experience": 150
+    "experience": 150,
+    "until": "DATE",
+    "review": "reviewed"
   }
 ]

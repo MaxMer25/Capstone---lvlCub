@@ -21,6 +21,7 @@ async function handler(req, res) {
           gold: req.body.gold,
           experience: req.body.experience,
           until: req.body.until,
+          review: req.body.review,
         });
         await newTask.save();
         res.status(200).json(newTask);

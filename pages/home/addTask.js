@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {useState} from "react";
 import {Button} from "@mui/material";
 import Image from "next/image";
+import Popup from "../../components/Popup";
 
 export default function AddTask() {
   const [file, setFile] = useState();
@@ -10,10 +11,12 @@ export default function AddTask() {
     title: "",
     details: "",
     image: "",
-    whichOne: "",
+    forWhom: "",
+    whoDid: "",
     until: "",
     gold: 0,
     experience: 0,
+    review: "",
   });
 
   function handleChange(event) {
@@ -149,17 +152,22 @@ export default function AddTask() {
           Create Task!
         </button>
       </StyledForm>
-
-      <StyledPopup popup={popup}>
-        <h1>That worked! You added one Task.</h1>
-        <h2>Do you want to add another task?</h2>
-        <Button href="/rewards" className="homeButton" variant="contained">
-          Home
-        </Button>
-        <Button onClick={resetPopup} className="addButton" variant="contained">
-          Add another one
-        </Button>
-      </StyledPopup>
+      {popup && (
+        <Popup>
+          <h1>That worked! You added one Task.</h1>
+          <h2>Do you want to add another task?</h2>
+          <Button href="/rewards" className="homeButton" variant="contained">
+            Home
+          </Button>
+          <Button
+            onClick={resetPopup}
+            className="addButton"
+            variant="contained"
+          >
+            Add another one
+          </Button>
+        </Popup>
+      )}
     </StyledFlex>
   );
 }
@@ -246,26 +254,6 @@ const StyledForm = styled.form`
     font-size: 1.1em;
     border: none;
   }
-`;
-
-const StyledPopup = styled.div`
-  position: absolute;
-  font-size: 1.1em;
-  width: 85%;
-  height: 40vh;
-  text-align: center;
-  font-weight: bold;
-  border: 4px solid white;
-  border-radius: 20px;
-  padding: 5%;
-  background-color: lightgreen;
-  transition: 1s;
-  box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
-  .homeButton {
-    margin-right: 10%;
-    background-color: tomato;
-  }
-  ${props => (props.popup ? "display: block;" : "display: none;")}
 `;
 
 const StyledFlex = styled.div`
