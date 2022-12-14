@@ -96,7 +96,7 @@ export default function Home() {
                 className="taskButtons"
                 variant="contained"
               >
-                Check
+                Done
               </Button>
             </StyledListElements>
           );
