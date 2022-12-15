@@ -3,12 +3,14 @@ import mongoose from "mongoose";
 const TaskSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
   },
   image: {
     type: String,
   },
-  whichOne: {
+  forWhom: {
+    type: String,
+  },
+  whoDid: {
     type: String,
   },
   details: {
@@ -18,6 +20,9 @@ const TaskSchema = new mongoose.Schema({
     type: String,
   },
   experience: {
+    type: String,
+  },
+  review: {
     type: String,
   },
 });

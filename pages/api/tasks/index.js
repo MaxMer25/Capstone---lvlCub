@@ -21,9 +21,19 @@ async function handler(req, res) {
           gold: req.body.gold,
           experience: req.body.experience,
           until: req.body.until,
+          review: req.body.review,
         });
         await newTask.save();
         res.status(200).json(newTask);
+      } catch (error) {
+        res.status(500).json({error: error.message});
+      }
+      break;
+
+    case "PATCH":
+      try {
+        const response = await Task.updateOne(req.body.id, req.body.change);
+        res.status(200).json(response);
       } catch (error) {
         res.status(500).json({error: error.message});
       }

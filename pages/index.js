@@ -6,6 +6,7 @@ import ParentIcon from "../components/ParentIcon";
 import {UserContext} from "../components/UserContext";
 import {LoadingAnimation} from "../components/LoadingAnimation";
 import {Button} from "@mui/material";
+import Popup from "../components/Popup";
 
 export default function Login() {
   const {user, setUser} = useContext(UserContext);
@@ -99,21 +100,23 @@ export default function Login() {
           </Button>
         )}
         {load && <LoadingAnimation />}
-        <StyledPopup popup={popup}>
-          <form onSubmit={handleSubmit}>
-            <h2>Name of the child:</h2>
-            <label htmlFor="name"></label>
-            <input
-              className="textInput"
-              id="name"
-              name="name"
-              type="text"
-            ></input>
-            <Button className="btn" variant="contained" type="submit">
-              Add
-            </Button>
-          </form>
-        </StyledPopup>
+        {popup && (
+          <Popup>
+            <form onSubmit={handleSubmit}>
+              <h2>Name of the child:</h2>
+              <label htmlFor="name"></label>
+              <input
+                className="textInput"
+                id="name"
+                name="name"
+                type="text"
+              ></input>
+              <Button className="btn" variant="contained" type="submit">
+                Add
+              </Button>
+            </form>
+          </Popup>
+        )}
 
         <StyledProfileContainer>
           {fetchUser.map(u => {
@@ -122,7 +125,7 @@ export default function Login() {
                 <div
                   key={u._id}
                   onClick={() => {
-                    setUser({type: "Child", id: u._id});
+                    setUser({type: "Child", id: u._id, name: u.name});
                     alert(`Hello ${u.name}`);
                   }}
                 >
@@ -155,32 +158,6 @@ const StyledProfileContainer = styled.div`
   border: 4px solid white;
   border-radius: 20px;
   width: 90vw;
-`;
-
-const StyledPopup = styled.div`
-  position: relative;
-  margin: auto;
-  margin-top: 1vh;
-  font-size: 1.3em;
-  width: 90vw;
-  padding-bottom: 5%;
-  font-weight: bold;
-  border: 4px solid white;
-  border-radius: 20px;
-  background-color: lightgreen;
-  transition: 1s;
-  box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
-  ${props => (props.popup ? "display: block;" : "display: none;")}
-
-  .btn {
-    margin-left: 1vh;
-    margin-top: 1vh;
-  }
-
-  .textInput {
-    width: 100%;
-    font-size: 1.5em;
-  }
 `;
 
 const StyledParentContainer = styled.div`

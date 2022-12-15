@@ -42,7 +42,7 @@ const ProductDetail = () => {
             width={175}
             height={122}
           ></Image>
-          <p>{task.whichOne}</p>
+          <p>{task.forWhom}</p>
           <p>
             Please do the following task:
             <br></br>
