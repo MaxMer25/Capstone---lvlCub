@@ -157,7 +157,7 @@ export default function Home() {
 
         {user.type === "Parent" &&
           tasks.map(task => {
-            if (task.review !== "in review") {
+            if (task.review !== "in review" && task.review !== "reviewed") {
               return (
                 <StyledListElements key={task._id}>
                   <h2>{task.title}</h2>
