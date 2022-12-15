@@ -51,6 +51,7 @@ export default function Home() {
     });
     if (response.ok) {
       alert("Task successfully updated!");
+      setShouldReload(true);
     } else {
       alert("Update failed");
     }
@@ -66,40 +67,42 @@ export default function Home() {
       {load && <LoadingAnimation />}
       <StyledList>
         {tasks.map(task => {
-          return (
-            <StyledListElements key={task._id}>
-              <h2>{task.title}</h2>
-              <StyledImage
-                priority={true}
-                width={175}
-                height={122}
-                src={task.image}
-                alt="picture of a task"
-              ></StyledImage>
-              <StyledGoldContainer>
-                <h3>REWARDS</h3>
-                <p>{JSON.stringify(task.gold)}cc</p>
-                <p>{task.experience}exp</p>
-              </StyledGoldContainer>
-              <Link href={`/home/${task._id}`}>
-                <Button className="taskButtons" variant="contained">
-                  Details
+          if (task.review !== "in review") {
+            return (
+              <StyledListElements key={task._id}>
+                <h2>{task.title}</h2>
+                <StyledImage
+                  priority={true}
+                  width={175}
+                  height={122}
+                  src={task.image}
+                  alt="picture of a task"
+                ></StyledImage>
+                <StyledGoldContainer>
+                  <h3>REWARDS</h3>
+                  <p>{JSON.stringify(task.gold)}cc</p>
+                  <p>{task.experience}exp</p>
+                </StyledGoldContainer>
+                <Link href={`/home/${task._id}`}>
+                  <Button className="taskButtons" variant="contained">
+                    Details
+                  </Button>
+                </Link>
+                <Button
+                  onClick={() =>
+                    setPopup({
+                      id: {_id: task._id},
+                      change: {review: "in review", whoDid: user.name},
+                    })
+                  }
+                  className="taskButtons"
+                  variant="contained"
+                >
+                  Done
                 </Button>
-              </Link>
-              <Button
-                onClick={() =>
-                  setPopup({
-                    id: {_id: task._id},
-                    change: {review: "in review", whoDid: user.name},
-                  })
-                }
-                className="taskButtons"
-                variant="contained"
-              >
-                Done
-              </Button>
-            </StyledListElements>
-          );
+              </StyledListElements>
+            );
+          }
         })}
         {popup && (
           <StyledPopup>

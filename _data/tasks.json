@@ -19,7 +19,7 @@
     "gold": 250,
     "experience": 100,
     "until": "DATE",
-    "review": "in review"
+    "review": "open"
   },
   {
     "title": "Einkaufen",
@@ -30,7 +30,7 @@
     "gold": 350,
     "experience": 150,
     "until": "DATE",
-    "review": "in review"
+    "review": "open"
   },
   {
     "title": "Blumen gießen",
@@ -41,7 +41,7 @@
     "gold": 100,
     "experience": 100,
     "until": "DATE",
-    "review": "in review"
+    "review": "open"
   },
   {
     "title": "Wäsche zusammenlegen",
@@ -52,6 +52,6 @@
     "gold": 150,
     "experience": 150,
     "until": "DATE",
-    "review": "reviewed"
+    "review": "open"
   }
 ]
