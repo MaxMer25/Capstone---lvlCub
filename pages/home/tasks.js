@@ -7,6 +7,7 @@ import Header from "../../components/Header/Header";
 import {UserContext} from "../../components/UserContext";
 import {LoadingAnimation} from "../../components/LoadingAnimation";
 import {Button} from "@mui/material";
+import Exclamation from "../../components/Exclamation";
 
 export default function Home() {
   const {user} = useContext(UserContext);
@@ -50,7 +51,7 @@ export default function Home() {
       },
     });
     if (response.ok) {
-      alert("Task successfully updated!");
+      alert("Updated successfully!");
       setShouldReload(true);
     } else {
       alert("Update failed");
@@ -66,44 +67,122 @@ export default function Home() {
       <Header />
       {load && <LoadingAnimation />}
       <StyledList>
-        {tasks.map(task => {
-          if (task.review !== "in review") {
-            return (
-              <StyledListElements key={task._id}>
-                <h2>{task.title}</h2>
-                <StyledImage
-                  priority={true}
-                  width={175}
-                  height={122}
-                  src={task.image}
-                  alt="picture of a task"
-                ></StyledImage>
-                <StyledGoldContainer>
-                  <h3>REWARDS</h3>
-                  <p>{JSON.stringify(task.gold)}cc</p>
-                  <p>{task.experience}exp</p>
-                </StyledGoldContainer>
-                <Link href={`/home/${task._id}`}>
-                  <Button className="taskButtons" variant="contained">
-                    Details
+        {/*-- Mapped tasks for children --*/}
+
+        {user.type === "Child" &&
+          tasks.map(task => {
+            if (task.review !== "in review") {
+              return (
+                <StyledListElements key={task._id}>
+                  <h2>{task.title}</h2>
+                  <StyledImage
+                    priority={true}
+                    width={175}
+                    height={122}
+                    src={task.image}
+                    alt="picture of a task"
+                  ></StyledImage>
+                  <StyledGoldContainer>
+                    <h3>REWARDS</h3>
+                    <p>{JSON.stringify(task.gold)}cc</p>
+                    <p>{task.experience}exp</p>
+                  </StyledGoldContainer>
+                  <Link href={`/home/${task._id}`}>
+                    <Button className="taskButtons" variant="contained">
+                      Details
+                    </Button>
+                  </Link>
+                  <Button
+                    onClick={() =>
+                      setPopup({
+                        id: {_id: task._id},
+                        change: {review: "in review", whoDid: user.name},
+                      })
+                    }
+                    className="taskButtons"
+                    variant="contained"
+                  >
+                    Done
                   </Button>
-                </Link>
-                <Button
-                  onClick={() =>
-                    setPopup({
-                      id: {_id: task._id},
-                      change: {review: "in review", whoDid: user.name},
-                    })
-                  }
-                  className="taskButtons"
-                  variant="contained"
-                >
-                  Done
-                </Button>
-              </StyledListElements>
-            );
-          }
-        })}
+                </StyledListElements>
+              );
+            }
+          })}
+
+        {/*-- Mapped tasks for parents --*/}
+
+        {user.type === "Parent" &&
+          tasks.map(task => {
+            if (task.review === "in review")
+              return (
+                <StyledReviewElements key={task._id}>
+                  <div className="ex">
+                    <Exclamation />
+                  </div>
+                  <h2>{task.title}</h2>
+                  <StyledImage
+                    className="reviewImage el"
+                    priority={true}
+                    width={175}
+                    height={122}
+                    src={task.image}
+                    alt="picture of a task"
+                  ></StyledImage>
+                  <StyledGoldContainer className="reviewGoldContainer el">
+                    <h3>REWARDS</h3>
+                    <p>{JSON.stringify(task.gold)}cc</p>
+                    <p>{task.experience}exp</p>
+                  </StyledGoldContainer>
+                  <Link href={`/home/${task._id}`}>
+                    <Button className="taskButtons btn1 el" variant="contained">
+                      Details
+                    </Button>
+                  </Link>
+                  <Button
+                    onClick={() =>
+                      setPopup({
+                        id: {_id: task._id},
+                        change: {review: "reviewed"},
+                      })
+                    }
+                    className="taskButtons btn2 el"
+                    variant="contained"
+                    color="success"
+                  >
+                    Review
+                  </Button>
+                </StyledReviewElements>
+              );
+          })}
+
+        {user.type === "Parent" &&
+          tasks.map(task => {
+            if (task.review !== "in review") {
+              return (
+                <StyledListElements key={task._id}>
+                  <h2>{task.title}</h2>
+                  <StyledImage
+                    priority={true}
+                    width={175}
+                    height={122}
+                    src={task.image}
+                    alt="picture of a task"
+                  ></StyledImage>
+                  <StyledGoldContainer>
+                    <h3>REWARDS</h3>
+                    <p>{JSON.stringify(task.gold)}cc</p>
+                    <p>{task.experience}exp</p>
+                  </StyledGoldContainer>
+                  <Link href={`/home/${task._id}`}>
+                    <Button className="taskButtons" variant="contained">
+                      Details
+                    </Button>
+                  </Link>
+                </StyledListElements>
+              );
+            }
+          })}
+
         {popup && (
           <StyledPopup>
             <h2>are you sure?</h2>
@@ -216,7 +295,7 @@ const StyledList = styled.div`
 const StyledListElements = styled.div`
   text-align: center;
   border: 4px solid white;
-  border-radius: 8%;
+  border-radius: 20px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -237,13 +316,17 @@ const StyledListElements = styled.div`
     -webkit-box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
     box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
   }
+
+  .reviewElements {
+    border: 4px solid red;
+  }
 `;
 
 const StyledGoldContainer = styled.div`
   border: 3px solid black;
   text-align: center;
   background: #d89848;
-  border-radius: 20%;
+  border-radius: 20px;
   grid-area: 2 / 2 / 3 / 3;
 `;
 
@@ -277,18 +360,37 @@ const StyledPopup = styled.div`
   background-color: lightgreen;
   transition: 1s;
   box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
-  .homeButton {
-    margin-right: 10%;
-    background-color: tomato;
-  }
 
   .btn {
     margin-left: 1vh;
     margin-top: 1vh;
   }
+`;
 
-  .textInput {
-    width: 100%;
-    font-size: 1.5em;
+const StyledReviewElements = styled.div`
+  text-align: center;
+  border: 4px solid red;
+  border-radius: 20px;
+  background: #fff4e6;
+  margin-top: 10%;
+  padding: 5%;
+
+  h2 {
+    padding: 4% 4%;
+    background: #ebebf0;
+    border-radius: 2rem;
+    width: relative;
+    height: fit-content;
+    grid-area: 2 / 1 / 3 / 3;
+    -webkit-box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .reviewElements {
+    border: 4px solid red;
+  }
+
+  .el {
+    margin: 2%;
   }
 `;
