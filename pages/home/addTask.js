@@ -46,11 +46,7 @@ export default function AddTask() {
   }
 
   function triggerPopup() {
-    if (popup == true) {
-      setPopup(false);
-    } else {
-      setPopup(true);
-    }
+    setPopup(previousState => !previousState);
   }
 
   return (
@@ -160,7 +156,7 @@ export default function AddTask() {
         <Popup>
           <h1>That worked! You added one Task.</h1>
           <h2>Do you want to add another task?</h2>
-          <Button href="/rewards" className="homeButton" variant="contained">
+          <Button href="/home/tasks" className="homeButton" variant="contained">
             Home
           </Button>
           <Button

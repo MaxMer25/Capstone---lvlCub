@@ -40,12 +40,9 @@ export default function AddReward() {
     await submitReward();
     triggerPopup();
   }
+
   function triggerPopup() {
-    if (popup == true) {
-      setPopup(false);
-    } else {
-      setPopup(true);
-    }
+    setPopup(previousState => !previousState);
   }
 
   return (
