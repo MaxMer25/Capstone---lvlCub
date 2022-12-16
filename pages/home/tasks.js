@@ -44,6 +44,8 @@ export default function Home() {
     }
   }, [shouldReload]);
 
+  // Patching api
+
   const handleConfirmation = async taskObject => {
     const response = await fetch("/api/tasks", {
       method: "PATCH",
@@ -73,7 +75,7 @@ export default function Home() {
 
         {user.type === "Child" &&
           tasks.map(task => {
-            if (task.review !== "in review") {
+            if (task.review !== "in review" && task.review !== "reviewed") {
               return (
                 <StyledListElements key={task._id}>
                   <h2>{task.title}</h2>
@@ -117,7 +119,7 @@ export default function Home() {
             }
           })}
 
-        {/*-- Mapped tasks for parents --*/}
+        {/*-- Mapped tasks for parents that need review --*/}
 
         {user.type === "Parent" &&
           tasks.map(task => {
@@ -169,6 +171,8 @@ export default function Home() {
                 </StyledReviewElements>
               );
           })}
+
+        {/*-- Mapped tasks for parents without reviewed tasks--*/}
 
         {user.type === "Parent" &&
           tasks.map(task => {
@@ -309,7 +313,6 @@ const StyledList = styled.div`
 
   .taskButtons {
     border-radius: 2rem;
-    /* bottom: -100%; */
   }
 
   img {
@@ -336,6 +339,8 @@ const StyledListElements = styled.div`
   margin-top: 10%;
   padding: 5%;
   gap: 5%;
+  -webkit-box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
 
   h2 {
     padding: 4% 4%;

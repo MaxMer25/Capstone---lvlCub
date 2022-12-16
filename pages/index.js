@@ -123,6 +123,7 @@ export default function Login() {
             if (u.type === "Child") {
               return (
                 <div
+                  className="childIcon"
                   key={u._id}
                   onClick={() => {
                     setUser({type: "Child", id: u._id, name: u.name});
@@ -158,6 +159,10 @@ const StyledProfileContainer = styled.div`
   border: 4px solid white;
   border-radius: 20px;
   width: 90vw;
+
+  .childIcon {
+    margin-bottom: -5vh;
+  }
 `;
 
 const StyledParentContainer = styled.div`
