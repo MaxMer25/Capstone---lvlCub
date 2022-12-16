@@ -1,18 +1,7 @@
 [
   {
-    "title": "Zimmer aufräumen",
-    "image": "/examples/roomexample.png",
-    "forWhom": "Max",
-    "whoDid": "Max",
-    "details": "Bitte auch staubsaugen",
-    "gold": 100,
-    "experience": 50,
-    "until": "DATE",
-    "review": "open"
-  },
-  {
     "title": "Mit dem Hund rausgehen",
-    "image": "/examples/dogJPG.jpg",
+    "image": "/examples/dogexample.png",
     "forWhom": "Jurian",
     "whoDid": "Jurian",
     "details": "Lass ihn an der Leine",
@@ -29,6 +18,17 @@
     "details": "Bitte Hundefutter mitbringen",
     "gold": 350,
     "experience": 150,
+    "until": "DATE",
+    "review": "open"
+  },
+  {
+    "title": "Zimmer aufräumen",
+    "image": "/examples/roomexample.png",
+    "forWhom": "Max",
+    "whoDid": "Max",
+    "details": "Bitte auch staubsaugen",
+    "gold": 100,
+    "experience": 50,
     "until": "DATE",
     "review": "open"
   },

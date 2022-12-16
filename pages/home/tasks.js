@@ -8,6 +8,8 @@ import {UserContext} from "../../components/UserContext";
 import {LoadingAnimation} from "../../components/LoadingAnimation";
 import {Button} from "@mui/material";
 import Exclamation from "../../components/Exclamation";
+import CubCoin from "../../components/CubCoin";
+import ExperienceCoin from "../../components/ExperienceCoin";
 
 export default function Home() {
   const {user} = useContext(UserContext);
@@ -75,20 +77,26 @@ export default function Home() {
               return (
                 <StyledListElements key={task._id}>
                   <h2>{task.title}</h2>
-                  <StyledImage
+                  <Image
                     priority={true}
                     width={175}
                     height={122}
                     src={task.image}
                     alt="picture of a task"
-                  ></StyledImage>
+                  ></Image>
                   <StyledGoldContainer>
                     <h3>REWARDS</h3>
-                    <p>{JSON.stringify(task.gold)}cc</p>
-                    <p>{task.experience}exp</p>
+                    <p>
+                      {task.gold}
+                      <CubCoin className="cubImage" />
+                    </p>
+                    <p>
+                      {task.experience}
+                      <ExperienceCoin />
+                    </p>
                   </StyledGoldContainer>
                   <Link href={`/home/${task._id}`}>
-                    <Button className="taskButtons" variant="contained">
+                    <Button className="taskButtons detail" variant="contained">
                       Details
                     </Button>
                   </Link>
@@ -99,7 +107,7 @@ export default function Home() {
                         change: {review: "in review", whoDid: user.name},
                       })
                     }
-                    className="taskButtons"
+                    className="taskButtons done"
                     variant="contained"
                   >
                     Done
@@ -119,19 +127,26 @@ export default function Home() {
                   <div className="ex">
                     <Exclamation />
                   </div>
-                  <h2>{task.title}</h2>
-                  <StyledImage
+
+                  <h2>{task.title} </h2>
+                  <Image
                     className="reviewImage el"
                     priority={true}
                     width={175}
                     height={122}
                     src={task.image}
                     alt="picture of a task"
-                  ></StyledImage>
+                  ></Image>
                   <StyledGoldContainer className="reviewGoldContainer el">
                     <h3>REWARDS</h3>
-                    <p>{JSON.stringify(task.gold)}cc</p>
-                    <p>{task.experience}exp</p>
+                    <p>
+                      {task.gold}
+                      <CubCoin className="cubImage" />
+                    </p>
+                    <p>
+                      {task.experience}
+                      <ExperienceCoin />
+                    </p>
                   </StyledGoldContainer>
                   <Link href={`/home/${task._id}`}>
                     <Button className="taskButtons btn1 el" variant="contained">
@@ -161,17 +176,23 @@ export default function Home() {
               return (
                 <StyledListElements key={task._id}>
                   <h2>{task.title}</h2>
-                  <StyledImage
+                  <Image
                     priority={true}
                     width={175}
                     height={122}
                     src={task.image}
                     alt="picture of a task"
-                  ></StyledImage>
+                  ></Image>
                   <StyledGoldContainer>
                     <h3>REWARDS</h3>
-                    <p>{JSON.stringify(task.gold)}cc</p>
-                    <p>{task.experience}exp</p>
+                    <p>
+                      {task.gold}
+                      <CubCoin className="cubImage" />
+                    </p>
+                    <p>
+                      {task.experience}
+                      <ExperienceCoin />
+                    </p>
                   </StyledGoldContainer>
                   <Link href={`/home/${task._id}`}>
                     <Button className="taskButtons" variant="contained">
@@ -288,7 +309,14 @@ const StyledList = styled.div`
 
   .taskButtons {
     border-radius: 2rem;
-    bottom: -100%;
+    /* bottom: -100%; */
+  }
+
+  img {
+    grid-area: imageContainer;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 20px;
   }
 `;
 
@@ -297,8 +325,11 @@ const StyledListElements = styled.div`
   border: 4px solid white;
   border-radius: 20px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    "title title"
+    "imageContainer goldContainer"
+    "imageContainer goldContainer"
+    "detailsContainer done";
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   background: #fff4e6;
@@ -312,13 +343,21 @@ const StyledListElements = styled.div`
     border-radius: 2rem;
     width: relative;
     height: fit-content;
-    grid-area: 1 / 1 / 2 / 3;
     -webkit-box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
     box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
+    grid-area: title;
   }
 
   .reviewElements {
     border: 4px solid red;
+  }
+
+  .detail {
+    grid-area: detailsContainer;
+  }
+
+  .done {
+    grid-area: done;
   }
 `;
 
@@ -327,11 +366,11 @@ const StyledGoldContainer = styled.div`
   text-align: center;
   background: #d89848;
   border-radius: 20px;
-  grid-area: 2 / 2 / 3 / 3;
-`;
+  grid-area: goldContainer;
 
-const StyledImage = styled(Image)`
-  grid-area: 2 / 1 / 3 / 2;
+  p {
+    font-size: 1.4em;
+  }
 `;
 
 const StyledSvg = styled.svg`
