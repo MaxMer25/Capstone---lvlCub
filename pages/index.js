@@ -153,7 +153,7 @@ const StyledProfileContainer = styled.div`
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   margin: auto;
-  margin-bottom: 24vh;
+  margin-bottom: 14vh;
   border: 4px solid white;
   border-radius: 20px;
   width: 90vw;

@@ -80,12 +80,12 @@ export default function Home() {
                 <StyledListElements key={task._id}>
                   <h2>{task.title}</h2>
                   <Image
-                    priority={true}
+                    priority
                     width={175}
                     height={122}
                     src={task.image}
                     alt="picture of a task"
-                  ></Image>
+                  />
                   <StyledGoldContainer>
                     <h3>REWARDS</h3>
                     <p>
@@ -133,12 +133,12 @@ export default function Home() {
                   <h2>{task.title} </h2>
                   <Image
                     className="reviewImage el"
-                    priority={true}
+                    priority
                     width={175}
                     height={122}
                     src={task.image}
                     alt="picture of a task"
-                  ></Image>
+                  />
                   <StyledGoldContainer className="reviewGoldContainer el">
                     <h3>REWARDS</h3>
                     <p>
@@ -181,12 +181,12 @@ export default function Home() {
                 <StyledListElements key={task._id}>
                   <h2>{task.title}</h2>
                   <Image
-                    priority={true}
+                    priority
                     width={175}
                     height={122}
                     src={task.image}
                     alt="picture of a task"
-                  ></Image>
+                  />
                   <StyledGoldContainer>
                     <h3>REWARDS</h3>
                     <p>
@@ -222,7 +222,6 @@ export default function Home() {
             <Button
               onClick={() => {
                 handleConfirmation(popup);
-                console.log(popup);
               }}
               className="btn"
               variant="contained"

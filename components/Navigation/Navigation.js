@@ -65,6 +65,7 @@ export default function Navigation() {
 }
 
 const StyledNavigation = styled.nav`
+  display: inline-block;
   position: fixed;
   bottom: 0;
   width: 100%;
