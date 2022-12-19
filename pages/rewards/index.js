@@ -161,6 +161,9 @@ const StyledListElement = styled.div`
   border: 4px solid white;
   border-radius: 20px;
   padding: 1vh;
+  -webkit-box-shadow: 0px 0px 8px 6px rgba(240, 101, 101, 0.5);
+  -moz-box-shadow: 0px 0px 8px 6px rgba(240, 101, 101, 0.5);
+  box-shadow: 0px 0px 8px 6px rgba(240, 101, 101, 0.5);
 `;
 
 const StyledSvg = styled.svg`

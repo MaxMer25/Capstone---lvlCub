@@ -131,7 +131,7 @@ export default function Login() {
                   }}
                 >
                   <p>{u.name}</p>
-                  <ChildIcon />
+                  <ChildIcon className="test" />
                 </div>
               );
             }
@@ -153,15 +153,14 @@ const StyledProfileContainer = styled.div`
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   margin: auto;
-  padding-bottom: 4vh;
-  margin-bottom: 14vh;
-  margin-top: 1vh;
+  margin-bottom: 24vh;
   border: 4px solid white;
   border-radius: 20px;
   width: 90vw;
+  height: fit-content;
 
   .childIcon {
-    margin-bottom: -5vh;
+    margin-bottom: 0;
   }
 `;
 
