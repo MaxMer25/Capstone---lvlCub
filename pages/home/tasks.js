@@ -10,6 +10,7 @@ import {Button} from "@mui/material";
 import Exclamation from "../../components/Exclamation";
 import CubCoin from "../../components/CubCoin";
 import ExperienceCoin from "../../components/ExperienceCoin";
+import LevelHeader from "../../components/LevelHeader/LevelHeader";
 
 export default function Home() {
   const {user} = useContext(UserContext);
@@ -68,7 +69,8 @@ export default function Home() {
       <Head>
         <title>Home Taskboard</title>
       </Head>
-      <Header />
+      {user.type === "Parent" && <Header />}
+      <LevelHeader />
       {load && <LoadingAnimation />}
       <StyledList>
         {/*-- Mapped tasks for children --*/}
@@ -77,44 +79,49 @@ export default function Home() {
           tasks.map(task => {
             if (task.review !== "in review" && task.review !== "reviewed") {
               return (
-                <StyledListElements key={task._id}>
-                  <h2>{task.title}</h2>
-                  <Image
-                    priority
-                    width={175}
-                    height={122}
-                    src={task.image}
-                    alt="picture of a task"
-                  />
-                  <StyledGoldContainer>
-                    <h3>REWARDS</h3>
-                    <p>
-                      {task.gold}
-                      <CubCoin className="cubImage" />
-                    </p>
-                    <p>
-                      {task.experience}
-                      <ExperienceCoin />
-                    </p>
-                  </StyledGoldContainer>
-                  <Link href={`/home/${task._id}`}>
-                    <Button className="taskButtons detail" variant="contained">
-                      Details
+                <>
+                  <StyledListElements key={task._id}>
+                    <h2>{task.title}</h2>
+                    <Image
+                      priority
+                      width={175}
+                      height={122}
+                      src={task.image}
+                      alt="picture of a task"
+                    />
+                    <StyledGoldContainer>
+                      <h3>REWARDS</h3>
+                      <p>
+                        {task.gold}
+                        <CubCoin className="cubImage" />
+                      </p>
+                      <p>
+                        {task.experience}
+                        <ExperienceCoin />
+                      </p>
+                    </StyledGoldContainer>
+                    <Link href={`/home/${task._id}`}>
+                      <Button
+                        className="taskButtons detail"
+                        variant="contained"
+                      >
+                        Details
+                      </Button>
+                    </Link>
+                    <Button
+                      onClick={() =>
+                        setPopup({
+                          id: {_id: task._id},
+                          change: {review: "in review", whoDid: user.name},
+                        })
+                      }
+                      className="taskButtons done"
+                      variant="contained"
+                    >
+                      Done
                     </Button>
-                  </Link>
-                  <Button
-                    onClick={() =>
-                      setPopup({
-                        id: {_id: task._id},
-                        change: {review: "in review", whoDid: user.name},
-                      })
-                    }
-                    className="taskButtons done"
-                    variant="contained"
-                  >
-                    Done
-                  </Button>
-                </StyledListElements>
+                  </StyledListElements>
+                </>
               );
             }
           })}
@@ -335,9 +342,9 @@ const StyledListElements = styled.div`
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   background: #fff4e6;
-  margin-top: 10%;
   padding: 5%;
   gap: 5%;
+  margin-top: 5vh;
   -webkit-box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
   box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
 
