@@ -51,7 +51,6 @@ const ProgressBar = () => {
         value={filteredUser}
         max="100"
       ></StyledProgressBar>
-      <button>test</button>
     </>
   );
 };
@@ -60,5 +59,6 @@ export default ProgressBar;
 
 const StyledProgressBar = styled.progress`
   width: 100%;
-  height: 3rem;
+  height: 2rem;
+  accent-color: #ff6347;
 `;

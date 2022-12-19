@@ -315,7 +315,7 @@ const StyledList = styled.div`
   margin-left: auto;
   margin-right: auto;
   width: 90vw;
-  padding-bottom: 30vh;
+  padding-bottom: 5vh;
 
   .taskButtons {
     border-radius: 2rem;

@@ -18,12 +18,13 @@ export default LevelHeader;
 
 const StyledLevel = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 2%;
   position: relative;
   top: 0;
   border: 4px solid red;
+  border-radius: 20px;
   width: 100%;
   height: 10%;
-  padding: 1vw;
+  padding: 2vw;
 `;

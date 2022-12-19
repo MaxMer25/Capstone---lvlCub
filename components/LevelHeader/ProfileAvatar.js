@@ -1,8 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import Image from "next/image";
 
 const ProfileAvatar = () => {
-  return <StyledAvatar>ProfileAvatar</StyledAvatar>;
+  return (
+    <StyledAvatar>
+      <Image
+        src="/examples/avatarExample.png"
+        alt="picture of an Avatar"
+        height={65}
+        width={60}
+      />
+    </StyledAvatar>
+  );
 };
 
 export default ProfileAvatar;

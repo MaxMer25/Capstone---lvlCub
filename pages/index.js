@@ -131,7 +131,7 @@ export default function Login() {
                   }}
                 >
                   <p>{u.name}</p>
-                  <ChildIcon className="test" />
+                  <ChildIcon width="80" height="100" className="test" />
                 </div>
               );
             }
