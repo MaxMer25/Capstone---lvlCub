@@ -18,6 +18,11 @@ export default function Home() {
   const [shouldReload, setShouldReload] = useState(true);
   const [load, setLoad] = useState(false);
   const [popup, setPopup] = useState(false);
+  const [rewards, setRewards] = useState(null);
+  const [fetchUser, setFetchUser] = useState([]);
+  const [userExperience, setUserExperience] = useState(null);
+  const [userGold, setUserGold] = useState(null);
+  const [userLevel, setUserLevel] = useState(null);
 
   // get data
 
@@ -45,7 +50,31 @@ export default function Home() {
     }
   }, [shouldReload]);
 
-  // Patching api
+  // get userData and set Gold and Experience state
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const response = await fetch("/api/user/");
+        if (response.ok) {
+          const data = await response.json();
+          setFetchUser(data);
+        } else {
+          throw new Error(
+            `Fetch fehlgeschlagen mit Status: ${response.status}`
+          );
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+      setShouldReload(false);
+    };
+    if (shouldReload) {
+      getUser();
+    }
+  }, [shouldReload]);
+
+  // Patching tasks
 
   const handleConfirmation = async taskObject => {
     const response = await fetch("/api/tasks", {
@@ -64,13 +93,50 @@ export default function Home() {
     setPopup(false);
   };
 
+  const handleRewards = async taskObject => {
+    const response = await fetch("/api/user", {
+      method: "PATCH",
+      body: JSON.stringify(taskObject),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      alert("Updated successfully!");
+      setShouldReload(true);
+    } else {
+      alert("Update failed");
+    }
+  };
+
+  function updateGoldAndExperience(experience, gold) {
+    let maxValue = userLevel * 100 * 1.5;
+    let newExperience = parseInt(experience) + parseInt(userExperience);
+    const restExperience = newExperience % maxValue;
+    const newGold = parseInt(userGold) + parseInt(gold);
+
+    let newUserLevel = userLevel;
+
+    while (newExperience > maxValue) {
+      newUserLevel++;
+      newExperience = newExperience - maxValue;
+    }
+
+    setRewards({
+      id: {_id: user._id},
+      change: {experience: restExperience, level: newUserLevel, gold: newGold},
+    });
+
+    handleRewards(rewards);
+  }
+
   return (
     <>
       <Head>
         <title>Home Taskboard</title>
       </Head>
       {user.type === "Parent" && <Header />}
-      <LevelHeader />
+      {user.type === "Child" && <LevelHeader />}
       {load && <LoadingAnimation />}
       <StyledList>
         {/*-- Mapped tasks for children --*/}
@@ -163,12 +229,20 @@ export default function Home() {
                     </Button>
                   </Link>
                   <Button
-                    onClick={() =>
+                    onClick={() => {
                       setPopup({
                         id: {_id: task._id},
                         change: {review: "reviewed"},
-                      })
-                    }
+                      });
+                      fetchUser.find(x => {
+                        if (x.name === task.whoDid) {
+                          setUserExperience(x.experience);
+                          setUserGold(x.gold);
+                          setUserLevel(x.level);
+                        }
+                      });
+                      updateGoldAndExperience(task.experience, task.gold);
+                    }}
                     className="taskButtons btn2 el"
                     variant="contained"
                     color="success"

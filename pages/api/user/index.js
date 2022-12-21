@@ -27,25 +27,8 @@ async function handler(req, res) {
       }
       break;
 
-    // case "PATCH":
-    //   try {
-
-    //     const user = await User.findById(req.body.id);
-
-    //     user.name = req.body.name;
-    //     user.type = req.body.type;
-    //     user.gold = req.body.gold;
-    //     user.experience = req.body.experience;
-
-    //     await user.save();
-
-    //     res.status(200).json(user);
-    //   } catch (error) {
-    //     res.status(500).json({error: error.message});
-    //   }
-    //   break;
-
     case "PATCH":
+      console.log(req.body.change);
       try {
         const response = await User.updateOne(req.body.id, req.body.change);
         res.status(200).json(response);
