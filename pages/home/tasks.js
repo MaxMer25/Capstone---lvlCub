@@ -113,14 +113,19 @@ export default function Home() {
     childGold,
     childLevel
   ) {
+    // max Value for the lvl progress bar
     let maxValue = childLevel * 100 * 1.5;
+    // sum of old experience plus the new rewarded value
     let newExperience = parseInt(experience) + parseInt(childExperience);
+    // sum of old gold plus the new rewarded value
     const newGold = parseInt(childGold) + parseInt(gold);
-    let newUserLevel = childLevel;
+    let newChildLevel = childLevel;
 
+    //gaining Level, when the experience exceeds the maxValue
     while (newExperience > maxValue) {
-      newUserLevel++;
+      newChildLevel++;
       newExperience = newExperience - maxValue;
+      maxValue = maxValue + 150;
       console.log(newExperience);
     }
 
@@ -128,7 +133,7 @@ export default function Home() {
 
     const test = {
       id: {name: whoDid},
-      change: {experience: restExperience, level: newUserLevel, gold: newGold},
+      change: {experience: restExperience, level: newChildLevel, gold: newGold},
     };
 
     handleRewards(test);
