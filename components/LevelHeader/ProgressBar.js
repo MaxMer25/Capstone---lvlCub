@@ -6,19 +6,15 @@ const ProgressBar = () => {
   const {user} = useContext(UserContext);
   const [shouldReload, setShouldReload] = useState(true);
   const [fetchUser, setFetchUser] = useState([]);
-  const [load, setLoad] = useState(false);
-  const [filteredUser, setFilteredUser] = useState(null);
+  const [userExperience, setUserExperience] = useState(null);
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        setLoad(!load);
         const response = await fetch("/api/user/");
         if (response.ok) {
           const data = await response.json();
           setFetchUser(data);
-
-          setLoad(false);
         } else {
           throw new Error(
             `Fetch fehlgeschlagen mit Status: ${response.status}`
@@ -37,18 +33,17 @@ const ProgressBar = () => {
   useEffect(() => {
     fetchUser.find(x => {
       if (x._id === user.id) {
-        setFilteredUser(x.experience);
-        console.log(filteredUser);
+        setUserExperience(x.experience);
       }
     });
   }, [shouldReload]);
 
   return (
     <>
-      <label htmlFor="progress"></label>
+      <label htmlFor="progress">{userExperience}%</label>
       <StyledProgressBar
         id="progress"
-        value={filteredUser}
+        value={userExperience}
         max="100"
       ></StyledProgressBar>
     </>
@@ -61,4 +56,8 @@ const StyledProgressBar = styled.progress`
   width: 100%;
   height: 2rem;
   accent-color: #ff6347;
+
+  label {
+    margin-left: 40%;
+  }
 `;

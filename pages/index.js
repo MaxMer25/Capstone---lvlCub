@@ -19,6 +19,7 @@ export default function Login() {
     type: "Child",
     gold: 0,
     experience: 0,
+    level: 0,
   });
 
   useEffect(() => {
@@ -56,7 +57,6 @@ export default function Login() {
   };
 
   async function handleSubmit(event) {
-    console.log(event.target.name.value);
     event.preventDefault();
     submitUser({
       ...userInfo,

@@ -14,6 +14,9 @@ const UserSchema = new mongoose.Schema({
   experience: {
     type: Number,
   },
+  level: {
+    type: Number,
+  },
 });
 
 export const User =

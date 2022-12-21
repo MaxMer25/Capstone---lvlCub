@@ -7,18 +7,21 @@
     "name": "Alrike",
     "type": "Child",
     "gold": 0,
-    "experience": 20
+    "experience": 20,
+    "level": 5
   },
   {
     "name": "Jurian",
     "type": "Child",
     "gold": 0,
-    "experience": 80
+    "experience": 80,
+    "level": 10
   },
   {
     "name": "Max",
     "type": "Child",
     "gold": 0,
-    "experience": 60
+    "experience": 60,
+    "level": 20
   }
 ]

@@ -18,6 +18,7 @@ async function handler(req, res) {
           type: req.body.type,
           gold: req.body.gold,
           experience: req.body.experience,
+          level: req.body.level,
         });
         await newUser.save();
         res.status(200).json(newUser);
@@ -26,22 +27,28 @@ async function handler(req, res) {
       }
       break;
 
+    // case "PATCH":
+    //   try {
+
+    //     const user = await User.findById(req.body.id);
+
+    //     user.name = req.body.name;
+    //     user.type = req.body.type;
+    //     user.gold = req.body.gold;
+    //     user.experience = req.body.experience;
+
+    //     await user.save();
+
+    //     res.status(200).json(user);
+    //   } catch (error) {
+    //     res.status(500).json({error: error.message});
+    //   }
+    //   break;
+
     case "PATCH":
       try {
-        // Find the user in the database
-        const user = await User.findById(req.body.id);
-
-        // Update the user with the new data from the request
-        user.name = req.body.name;
-        user.type = req.body.type;
-        user.gold = req.body.gold;
-        user.experience = req.body.experience;
-
-        // Save the updated user to the database
-        await user.save();
-
-        // Return the updated user
-        res.status(200).json(user);
+        const response = await User.updateOne(req.body.id, req.body.change);
+        res.status(200).json(response);
       } catch (error) {
         res.status(500).json({error: error.message});
       }
