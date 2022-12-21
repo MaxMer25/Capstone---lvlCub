@@ -28,7 +28,6 @@ async function handler(req, res) {
       break;
 
     case "PATCH":
-      console.log(req.body.change);
       try {
         const response = await User.updateOne(req.body.id, req.body.change);
         res.status(200).json(response);

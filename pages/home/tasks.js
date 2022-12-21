@@ -18,11 +18,7 @@ export default function Home() {
   const [shouldReload, setShouldReload] = useState(true);
   const [load, setLoad] = useState(false);
   const [popup, setPopup] = useState(false);
-  const [rewards, setRewards] = useState(null);
   const [fetchUser, setFetchUser] = useState([]);
-  const [userExperience, setUserExperience] = useState(null);
-  const [userGold, setUserGold] = useState(null);
-  const [userLevel, setUserLevel] = useState(null);
 
   // get data
 
@@ -50,7 +46,7 @@ export default function Home() {
     }
   }, [shouldReload]);
 
-  // get userData and set Gold and Experience state
+  // get userData
 
   useEffect(() => {
     const getUser = async () => {
@@ -109,25 +105,33 @@ export default function Home() {
     }
   };
 
-  function updateGoldAndExperience(experience, gold) {
-    let maxValue = userLevel * 100 * 1.5;
-    let newExperience = parseInt(experience) + parseInt(userExperience);
-    const restExperience = newExperience % maxValue;
-    const newGold = parseInt(userGold) + parseInt(gold);
-
-    let newUserLevel = userLevel;
+  function updateGoldAndExperience(
+    experience,
+    gold,
+    whoDid,
+    childExperience,
+    childGold,
+    childLevel
+  ) {
+    let maxValue = childLevel * 100 * 1.5;
+    let newExperience = parseInt(experience) + parseInt(childExperience);
+    const newGold = parseInt(childGold) + parseInt(gold);
+    let newUserLevel = childLevel;
 
     while (newExperience > maxValue) {
       newUserLevel++;
       newExperience = newExperience - maxValue;
+      console.log(newExperience);
     }
 
-    setRewards({
-      id: {_id: user._id},
-      change: {experience: restExperience, level: newUserLevel, gold: newGold},
-    });
+    const restExperience = newExperience % maxValue;
 
-    handleRewards(rewards);
+    const test = {
+      id: {name: whoDid},
+      change: {experience: restExperience, level: newUserLevel, gold: newGold},
+    };
+
+    handleRewards(test);
   }
 
   return (
@@ -236,12 +240,19 @@ export default function Home() {
                       });
                       fetchUser.find(x => {
                         if (x.name === task.whoDid) {
-                          setUserExperience(x.experience);
-                          setUserGold(x.gold);
-                          setUserLevel(x.level);
+                          // setUserExperience(x.experience);
+                          // setUserGold(x.gold);
+                          // setUserLevel(x.level);
+                          updateGoldAndExperience(
+                            task.experience,
+                            task.gold,
+                            task.whoDid,
+                            x.experience,
+                            x.gold,
+                            x.level
+                          );
                         }
                       });
-                      updateGoldAndExperience(task.experience, task.gold);
                     }}
                     className="taskButtons btn2 el"
                     variant="contained"
