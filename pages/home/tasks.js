@@ -45,7 +45,7 @@ export default function Home() {
     if (shouldReload) {
       getTasks();
     }
-  }, [shouldReload, load]);
+  }, [shouldReload]);
 
   // get userData
 
@@ -77,7 +77,7 @@ export default function Home() {
         setUserGold(x.gold);
       }
     });
-  }, [fetchUser, user.id]);
+  }, [fetchUser]);
 
   // Patching tasks
 
