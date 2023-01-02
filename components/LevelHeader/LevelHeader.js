@@ -18,8 +18,6 @@ export default LevelHeader;
 
 const StyledLevel = styled.div`
   display: flex;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
   align-items: center;
   gap: 2%;
   position: relative;

@@ -19,6 +19,7 @@ export default function Home() {
   const [load, setLoad] = useState(false);
   const [popup, setPopup] = useState(false);
   const [fetchUser, setFetchUser] = useState([]);
+  const [userGold, setUserGold] = useState(null);
 
   // get data
 
@@ -68,6 +69,14 @@ export default function Home() {
     if (shouldReload) {
       getUser();
     }
+  }, [shouldReload]);
+
+  useEffect(() => {
+    fetchUser.find(x => {
+      if (x._id === user.id) {
+        setUserGold(x.gold);
+      }
+    });
   }, [shouldReload]);
 
   // Patching tasks
@@ -397,6 +406,16 @@ export default function Home() {
           </StyledSvg>
         </Link>
       )}
+      {user.type === "Child" && (
+        <>
+          <StyledGoldWallet>
+            <div>
+              {userGold}
+              <CubCoin className="cubImage" />
+            </div>
+          </StyledGoldWallet>
+        </>
+      )}
     </>
   );
 }
@@ -533,4 +552,19 @@ const StyledReviewElements = styled.div`
   .el {
     margin: 2%;
   }
+`;
+
+const StyledGoldWallet = styled.div`
+  position: fixed;
+  overflow: hidden;
+  background-color: gold;
+  left: 1vw;
+  bottom: 15%;
+  display: flex;
+  align-items: baseline;
+  border: 4px solid white;
+  border-radius: 20px;
+  width: 30%;
+  height: 100px;
+  padding-left: 3vw;
 `;
