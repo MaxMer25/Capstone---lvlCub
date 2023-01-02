@@ -15,8 +15,9 @@ const StyledLevel = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
-  width: 50px;
+  width: 4rem;
+  height: 3rem;
   border: 2px solid black;
   border-radius: 50%;
+  padding-right: 0.4rem;
 `;

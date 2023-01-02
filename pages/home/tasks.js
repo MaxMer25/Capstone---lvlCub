@@ -453,7 +453,7 @@ const StyledListElements = styled.div`
   background: #fff4e6;
   padding: 5%;
   gap: 5%;
-  margin-top: 5vh;
+  margin-bottom: 10%;
   -webkit-box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
   box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
 

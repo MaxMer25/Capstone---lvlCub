@@ -20,11 +20,10 @@ const StyledLevel = styled.div`
   display: flex;
   align-items: center;
   gap: 2%;
-  position: relative;
   top: 0;
-  border: 4px solid red;
+  border: 4px solid tomato;
   border-radius: 20px;
-  width: 100%;
   height: 10%;
   padding: 2vw;
+  margin: 0.1rem 0.1rem 1rem 0.1rem;
 `;

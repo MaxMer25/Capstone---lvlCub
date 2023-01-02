@@ -9,12 +9,16 @@ export default function Header() {
         alt="picture of something"
         width={150}
         height={150}
+        style={{marginBottom: "-0.2 rem"}}
       />
     </StyledHeader>
   );
 }
 
 const StyledHeader = styled.div`
-  margin-top: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  padding: 1rem 0;
 `;
