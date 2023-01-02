@@ -8,6 +8,8 @@ export function UserContextProvider({children}) {
     type: "",
     id: undefined,
     name: "",
+    gold: null,
+    level: null,
   });
 
   return (

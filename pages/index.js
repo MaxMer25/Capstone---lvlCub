@@ -126,7 +126,13 @@ export default function Login() {
                   className="childIcon"
                   key={u._id}
                   onClick={() => {
-                    setUser({type: "Child", id: u._id, name: u.name});
+                    setUser({
+                      type: "Child",
+                      id: u._id,
+                      name: u.name,
+                      gold: u.gold,
+                      level: u.level,
+                    });
                     alert(`Hello ${u.name}`);
                   }}
                 >
