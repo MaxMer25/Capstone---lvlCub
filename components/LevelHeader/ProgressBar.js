@@ -7,6 +7,7 @@ const ProgressBar = () => {
   const [shouldReload, setShouldReload] = useState(true);
   const [fetchUser, setFetchUser] = useState([]);
   const [userExperience, setUserExperience] = useState(null);
+  const [userLevel, setUserLevel] = useState(null);
 
   useEffect(() => {
     const getUser = async () => {
@@ -34,17 +35,21 @@ const ProgressBar = () => {
     fetchUser.find(x => {
       if (x._id === user.id) {
         setUserExperience(x.experience);
+        setUserLevel(x.level);
       }
     });
   }, [shouldReload]);
 
+  const maxLevel = userLevel * 100 * 1.5;
+  const levelPercentage = (userExperience / (maxLevel / 100)).toFixed(2);
+
   return (
     <>
-      <label htmlFor="progress">{userExperience}%</label>
+      <label htmlFor="progress">{levelPercentage}%</label>
       <StyledProgressBar
         id="progress"
         value={userExperience}
-        max="100"
+        max={maxLevel}
       ></StyledProgressBar>
     </>
   );

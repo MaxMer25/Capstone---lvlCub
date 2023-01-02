@@ -131,12 +131,12 @@ export default function Home() {
 
     const restExperience = newExperience % maxValue;
 
-    const test = {
+    const rewards = {
       id: {name: whoDid},
       change: {experience: restExperience, level: newChildLevel, gold: newGold},
     };
 
-    handleRewards(test);
+    handleRewards(rewards);
   }
 
   return (
