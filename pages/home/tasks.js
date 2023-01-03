@@ -11,6 +11,7 @@ import Exclamation from "../../components/Exclamation";
 import CubCoin from "../../components/CubCoin";
 import ExperienceCoin from "../../components/ExperienceCoin";
 import LevelHeader from "../../components/LevelHeader/LevelHeader";
+import {GoldWallet} from "../../components/GoldWallet";
 
 export default function Home() {
   const {user} = useContext(UserContext);
@@ -19,7 +20,6 @@ export default function Home() {
   const [load, setLoad] = useState(false);
   const [popup, setPopup] = useState(false);
   const [fetchUser, setFetchUser] = useState([]);
-  const [userGold, setUserGold] = useState(null);
 
   // get data
 
@@ -70,14 +70,6 @@ export default function Home() {
       getUser();
     }
   }, [shouldReload]);
-
-  useEffect(() => {
-    fetchUser.find(x => {
-      if (x._id === user.id) {
-        setUserGold(x.gold);
-      }
-    });
-  }, [fetchUser]);
 
   // Patching tasks
 
@@ -406,16 +398,7 @@ export default function Home() {
           </StyledSvg>
         </Link>
       )}
-      {user.type === "Child" && (
-        <>
-          <StyledGoldWallet>
-            <div>
-              {userGold}
-              <CubCoin className="cubImage" />
-            </div>
-          </StyledGoldWallet>
-        </>
-      )}
+      <GoldWallet />
     </>
   );
 }

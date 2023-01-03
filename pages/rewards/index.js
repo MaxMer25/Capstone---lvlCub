@@ -6,12 +6,18 @@ import Link from "next/link";
 import {UserContext} from "../../components/UserContext";
 import Header from "../../components/Header/Header";
 import {LoadingAnimation} from "../../components/LoadingAnimation";
+import {GoldWallet} from "../../components/GoldWallet";
+import SmallCubCoin from "../../components/SmallCubCoin";
+import {Button} from "@mui/material";
+import {Backdrop} from "@mui/material";
 
 export default function Reward() {
   const {user} = useContext(UserContext);
   const [rewards, setRewards] = useState([]);
   const [shouldReload, setShouldReload] = useState(true);
   const [load, setLoad] = useState(false);
+  const [backdrop, setBackdrop] = useState(false);
+  const [imageSource, setImageSource] = useState(rewards.image);
 
   useEffect(() => {
     const getRewards = async () => {
@@ -37,6 +43,10 @@ export default function Reward() {
     }
   }, [shouldReload]);
 
+  function handleToggle() {
+    setBackdrop(!backdrop);
+  }
+
   return (
     <>
       <Head>
@@ -52,12 +62,43 @@ export default function Reward() {
               <StyledListElement key={reward._id}>
                 <p>{reward.title}</p>
                 <Image
+                  id={reward._id}
                   width={125}
                   height={100}
                   src={reward.image}
                   alt="picture of a reward"
                 ></Image>
-                <p>{JSON.stringify(reward.cost)}cc</p>
+                <FlexContainer>
+                  {JSON.stringify(reward.cost)}
+                  <SmallCubCoin />
+                  <Button
+                    onClick={() => {
+                      handleToggle();
+                      setImageSource(reward.image);
+                    }}
+                  >
+                    🛒
+                  </Button>
+                  <Backdrop
+                    sx={{
+                      color: "fff",
+                      zIndex: theme => theme.zIndex.drawer + 1,
+                    }}
+                    open={backdrop ? true : false}
+                  >
+                    <StyledBuyingBackdrop>
+                      <Image
+                        id={reward._id}
+                        width={125}
+                        height={100}
+                        src={imageSource}
+                        alt="picture of a reward"
+                      ></Image>
+                      <h2>How many do you want to purchase?</h2>
+                      <button onClick={handleToggle}>Back</button>
+                    </StyledBuyingBackdrop>
+                  </Backdrop>
+                </FlexContainer>
               </StyledListElement>
             );
           })}
@@ -132,6 +173,7 @@ export default function Reward() {
           </Link>
         )}
       </StyledLayout>
+      <GoldWallet />
     </>
   );
 }
@@ -139,7 +181,7 @@ export default function Reward() {
 const StyledLayout = styled.div`
   text-align: center;
   font-weight: bold;
-  padding-bottom: 30vh;
+  padding-bottom: 10%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -174,4 +216,26 @@ const StyledSvg = styled.svg`
   margin-left: auto;
   margin-right: auto;
   z-index: 1;
+`;
+
+const FlexContainer = styled.div`
+  display: flex;
+  align-items: center;
+  input {
+    width: 80%;
+    margin-left: 1rem;
+  }
+  button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    margin-left: 1.5rem;
+  }
+`;
+
+const StyledBuyingBackdrop = styled.div`
+  background-image: linear-gradient(to top, #feada6 0%, #f5efef 100%);
+  width: 80vw;
+  height: 60vh;
+  padding-top: 2rem;
 `;
