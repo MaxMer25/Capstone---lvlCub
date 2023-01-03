@@ -98,6 +98,7 @@ export default function Reward() {
                   >
                     <FlexBackdrop>
                       <GoldBar>
+                        <Loader />
                         <p>{user.gold}</p>
                         <SmallCubCoin />
                       </GoldBar>
@@ -334,7 +335,7 @@ const GoldBar = styled.div`
   top: 5vh;
   height: 10vh;
   width: fit-content;
-  border: 4px solid gainsboro;
+  border: 4px solid #f9c22e;
   border-radius: 50%;
   background-color: #efea5a;
   align-self: center;
@@ -346,4 +347,22 @@ const GoldBar = styled.div`
 const FlexBackdrop = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const Loader = styled.div`
+  width: 10vh;
+  z-index: 2;
+  position: absolute;
+  width: 800px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side, #efea5a 95%, #0000) 50% 1px/12px
+      12px no-repeat,
+    radial-gradient(farthest-side, #0000 calc(100% - 14px), transparent 0);
+  animation: s9 4s infinite linear;
+  @keyframes s9 {
+    to {
+      transform: rotate(1turn);
+    }
+  }
 `;
