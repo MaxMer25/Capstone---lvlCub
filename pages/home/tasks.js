@@ -10,6 +10,7 @@ import {Button} from "@mui/material";
 import Exclamation from "../../components/Exclamation";
 import CubCoin from "../../components/CubCoin";
 import ExperienceCoin from "../../components/ExperienceCoin";
+import LevelHeader from "../../components/LevelHeader/LevelHeader";
 
 export default function Home() {
   const {user} = useContext(UserContext);
@@ -17,6 +18,8 @@ export default function Home() {
   const [shouldReload, setShouldReload] = useState(true);
   const [load, setLoad] = useState(false);
   const [popup, setPopup] = useState(false);
+  const [fetchUser, setFetchUser] = useState([]);
+  const [userGold, setUserGold] = useState(null);
 
   // get data
 
@@ -44,7 +47,39 @@ export default function Home() {
     }
   }, [shouldReload]);
 
-  // Patching api
+  // get userData
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const response = await fetch("/api/user/");
+        if (response.ok) {
+          const data = await response.json();
+          setFetchUser(data);
+        } else {
+          throw new Error(
+            `Fetch fehlgeschlagen mit Status: ${response.status}`
+          );
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+      setShouldReload(false);
+    };
+    if (shouldReload) {
+      getUser();
+    }
+  }, [shouldReload]);
+
+  useEffect(() => {
+    fetchUser.find(x => {
+      if (x._id === user.id) {
+        setUserGold(x.gold);
+      }
+    });
+  }, [fetchUser]);
+
+  // Patching tasks
 
   const handleConfirmation = async taskObject => {
     const response = await fetch("/api/tasks", {
@@ -63,12 +98,63 @@ export default function Home() {
     setPopup(false);
   };
 
+  const handleRewards = async taskObject => {
+    const response = await fetch("/api/user", {
+      method: "PATCH",
+      body: JSON.stringify(taskObject),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      alert("Updated successfully!");
+      setShouldReload(true);
+    } else {
+      alert("Update failed");
+    }
+  };
+
+  function updateGoldAndExperience(
+    experience,
+    gold,
+    whoDid,
+    childExperience,
+    childGold,
+    childLevel
+  ) {
+    // max Value for the lvl progress bar
+    let maxValue = childLevel * 100 * 1.5;
+    // sum of old experience plus the new rewarded value
+    let newExperience = parseInt(experience) + parseInt(childExperience);
+    // sum of old gold plus the new rewarded value
+    const newGold = parseInt(childGold) + parseInt(gold);
+    let newChildLevel = childLevel;
+
+    //gaining Level, when the experience exceeds the maxValue
+    while (newExperience > maxValue) {
+      newChildLevel++;
+      newExperience = newExperience - maxValue;
+      maxValue = maxValue + 150;
+      console.log(newExperience);
+    }
+
+    const restExperience = newExperience % maxValue;
+
+    const rewards = {
+      id: {name: whoDid},
+      change: {experience: restExperience, level: newChildLevel, gold: newGold},
+    };
+
+    handleRewards(rewards);
+  }
+
   return (
     <>
       <Head>
         <title>Home Taskboard</title>
       </Head>
-      <Header />
+      {user.type === "Parent" && <Header />}
+      {user.type === "Child" && <LevelHeader />}
       {load && <LoadingAnimation />}
       <StyledList>
         {/*-- Mapped tasks for children --*/}
@@ -77,44 +163,49 @@ export default function Home() {
           tasks.map(task => {
             if (task.review !== "in review" && task.review !== "reviewed") {
               return (
-                <StyledListElements key={task._id}>
-                  <h2>{task.title}</h2>
-                  <Image
-                    priority
-                    width={175}
-                    height={122}
-                    src={task.image}
-                    alt="picture of a task"
-                  />
-                  <StyledGoldContainer>
-                    <h3>REWARDS</h3>
-                    <p>
-                      {task.gold}
-                      <CubCoin className="cubImage" />
-                    </p>
-                    <p>
-                      {task.experience}
-                      <ExperienceCoin />
-                    </p>
-                  </StyledGoldContainer>
-                  <Link href={`/home/${task._id}`}>
-                    <Button className="taskButtons detail" variant="contained">
-                      Details
+                <>
+                  <StyledListElements key={task._id}>
+                    <h2>{task.title}</h2>
+                    <Image
+                      priority
+                      width={175}
+                      height={122}
+                      src={task.image}
+                      alt="picture of a task"
+                    />
+                    <StyledGoldContainer>
+                      <h3>REWARDS</h3>
+                      <p>
+                        {task.gold}
+                        <CubCoin className="cubImage" />
+                      </p>
+                      <p>
+                        {task.experience}
+                        <ExperienceCoin />
+                      </p>
+                    </StyledGoldContainer>
+                    <Link href={`/home/${task._id}`}>
+                      <Button
+                        className="taskButtons detail"
+                        variant="contained"
+                      >
+                        Details
+                      </Button>
+                    </Link>
+                    <Button
+                      onClick={() =>
+                        setPopup({
+                          id: {_id: task._id},
+                          change: {review: "in review", whoDid: user.name},
+                        })
+                      }
+                      className="taskButtons done"
+                      variant="contained"
+                    >
+                      Done
                     </Button>
-                  </Link>
-                  <Button
-                    onClick={() =>
-                      setPopup({
-                        id: {_id: task._id},
-                        change: {review: "in review", whoDid: user.name},
-                      })
-                    }
-                    className="taskButtons done"
-                    variant="contained"
-                  >
-                    Done
-                  </Button>
-                </StyledListElements>
+                  </StyledListElements>
+                </>
               );
             }
           })}
@@ -156,12 +247,27 @@ export default function Home() {
                     </Button>
                   </Link>
                   <Button
-                    onClick={() =>
+                    onClick={() => {
                       setPopup({
                         id: {_id: task._id},
                         change: {review: "reviewed"},
-                      })
-                    }
+                      });
+                      fetchUser.find(x => {
+                        if (x.name === task.whoDid) {
+                          // setUserExperience(x.experience);
+                          // setUserGold(x.gold);
+                          // setUserLevel(x.level);
+                          updateGoldAndExperience(
+                            task.experience,
+                            task.gold,
+                            task.whoDid,
+                            x.experience,
+                            x.gold,
+                            x.level
+                          );
+                        }
+                      });
+                    }}
                     className="taskButtons btn2 el"
                     variant="contained"
                     color="success"
@@ -300,6 +406,16 @@ export default function Home() {
           </StyledSvg>
         </Link>
       )}
+      {user.type === "Child" && (
+        <>
+          <StyledGoldWallet>
+            <div>
+              {userGold}
+              <CubCoin className="cubImage" />
+            </div>
+          </StyledGoldWallet>
+        </>
+      )}
     </>
   );
 }
@@ -308,7 +424,7 @@ const StyledList = styled.div`
   margin-left: auto;
   margin-right: auto;
   width: 90vw;
-  padding-bottom: 30vh;
+  padding-bottom: 5vh;
 
   .taskButtons {
     border-radius: 2rem;
@@ -335,9 +451,9 @@ const StyledListElements = styled.div`
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   background: #fff4e6;
-  margin-top: 10%;
   padding: 5%;
   gap: 5%;
+  margin-bottom: 10%;
   -webkit-box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
   box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
 
@@ -436,4 +552,19 @@ const StyledReviewElements = styled.div`
   .el {
     margin: 2%;
   }
+`;
+
+const StyledGoldWallet = styled.div`
+  position: fixed;
+  overflow: hidden;
+  background-color: gold;
+  left: 1vw;
+  bottom: 15%;
+  display: flex;
+  align-items: baseline;
+  border: 4px solid white;
+  border-radius: 20px;
+  width: 30%;
+  height: 100px;
+  padding-left: 3vw;
 `;

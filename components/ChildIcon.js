@@ -5,8 +5,8 @@ export default function ChildIcon() {
     <>
       <svg
         role="img"
-        width="100"
-        height="146"
+        width={100}
+        height={146}
         viewBox="0 0 100 146"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

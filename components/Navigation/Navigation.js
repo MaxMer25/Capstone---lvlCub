@@ -5,7 +5,7 @@ import {useRouter} from "next/router";
 export default function Navigation() {
   const router = useRouter();
   return (
-    <footer>
+    <Footer>
       <StyledNavigation role="navigation">
         <ul>
           <StyledLink href={"/"}>
@@ -60,12 +60,13 @@ export default function Navigation() {
           </StyledLink>
         </ul>
       </StyledNavigation>
-    </footer>
+    </Footer>
   );
 }
 
 const StyledNavigation = styled.nav`
-  display: inline-block;
+  display: block;
+  overflow: hidden;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -119,4 +120,8 @@ const StyledLink = styled(Link)`
       }
     }
   }
+`;
+
+const Footer = styled.footer`
+  overflow: hidden;
 `;

@@ -19,6 +19,7 @@ export default function Login() {
     type: "Child",
     gold: 0,
     experience: 0,
+    level: 1,
   });
 
   useEffect(() => {
@@ -56,7 +57,6 @@ export default function Login() {
   };
 
   async function handleSubmit(event) {
-    console.log(event.target.name.value);
     event.preventDefault();
     submitUser({
       ...userInfo,
@@ -126,12 +126,18 @@ export default function Login() {
                   className="childIcon"
                   key={u._id}
                   onClick={() => {
-                    setUser({type: "Child", id: u._id, name: u.name});
+                    setUser({
+                      type: "Child",
+                      id: u._id,
+                      name: u.name,
+                      gold: u.gold,
+                      level: u.level,
+                    });
                     alert(`Hello ${u.name}`);
                   }}
                 >
                   <p>{u.name}</p>
-                  <ChildIcon className="test" />
+                  <ChildIcon width="80" height="100" className="test" />
                 </div>
               );
             }
