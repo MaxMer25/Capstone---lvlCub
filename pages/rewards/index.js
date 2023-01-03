@@ -230,7 +230,7 @@ const StyledLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   width: 40vw;
   margin-left: auto;
   margin-right: auto; ;
@@ -265,6 +265,7 @@ const StyledSvg = styled.svg`
 
 const FlexContainer = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-top: 0.2rem;
   button {
@@ -330,12 +331,13 @@ const GoldBar = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding: 0.3rem;
   font-size: 2rem;
   position: absolute;
   top: 5vh;
   height: 10vh;
   width: fit-content;
-  border: 4px solid #f9c22e;
+  border: 4px solid lightyellow;
   border-radius: 50%;
   background-color: #efea5a;
   align-self: center;
