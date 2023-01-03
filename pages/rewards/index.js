@@ -8,6 +8,7 @@ import Header from "../../components/Header/Header";
 import {LoadingAnimation} from "../../components/LoadingAnimation";
 import {GoldWallet} from "../../components/GoldWallet";
 import SmallCubCoin from "../../components/SmallCubCoin";
+import TinyCubCoin from "../../components/TinyCubCoin";
 import {Button} from "@mui/material";
 import {Backdrop} from "@mui/material";
 
@@ -18,6 +19,9 @@ export default function Reward() {
   const [load, setLoad] = useState(false);
   const [backdrop, setBackdrop] = useState(false);
   const [imageSource, setImageSource] = useState(rewards.image);
+  const [title, setTitle] = useState("");
+  const [cost, setCost] = useState("");
+  const [sumCost, setSumCost] = useState("");
 
   useEffect(() => {
     const getRewards = async () => {
@@ -45,6 +49,10 @@ export default function Reward() {
 
   function handleToggle() {
     setBackdrop(!backdrop);
+  }
+
+  function test(event) {
+    setSumCost(event.target.value * cost);
   }
 
   return (
@@ -75,6 +83,8 @@ export default function Reward() {
                     onClick={() => {
                       handleToggle();
                       setImageSource(reward.image);
+                      setTitle(reward.title);
+                      setCost(reward.cost);
                     }}
                   >
                     🛒
@@ -86,17 +96,51 @@ export default function Reward() {
                     }}
                     open={backdrop ? true : false}
                   >
-                    <StyledBuyingBackdrop>
-                      <Image
-                        id={reward._id}
-                        width={125}
-                        height={100}
-                        src={imageSource}
-                        alt="picture of a reward"
-                      ></Image>
-                      <h2>How many do you want to purchase?</h2>
-                      <button onClick={handleToggle}>Back</button>
-                    </StyledBuyingBackdrop>
+                    <FlexBackdrop>
+                      <GoldBar>
+                        <p>{user.gold}</p>
+                        <SmallCubCoin />
+                      </GoldBar>
+                      <StyledBuyingBackdrop>
+                        <Border>
+                          <h2>How many do you want to purchase?</h2>
+                          <Image
+                            id={reward._id}
+                            width={125}
+                            height={100}
+                            src={imageSource}
+                            alt="picture of a reward"
+                          ></Image>
+                          <p>
+                            {title}({cost}
+                            <TinyCubCoin />)
+                          </p>
+                        </Border>
+                        <form>
+                          <label htmlFor="amount">Amount:</label>
+                          <input
+                            onInput={test}
+                            type="number"
+                            name="amount"
+                            min="0"
+                            step="1"
+                          ></input>
+                          <h3>Cost</h3>
+                          <p>{sumCost}</p>
+                        </form>
+
+                        <Button
+                          className="back"
+                          variant="contained"
+                          onClick={handleToggle}
+                        >
+                          CANCEL
+                        </Button>
+                        <Button className="buy" variant="contained">
+                          Buy
+                        </Button>
+                      </StyledBuyingBackdrop>
+                    </FlexBackdrop>
                   </Backdrop>
                 </FlexContainer>
               </StyledListElement>
@@ -221,10 +265,7 @@ const StyledSvg = styled.svg`
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
-  input {
-    width: 80%;
-    margin-left: 1rem;
-  }
+  margin-top: 0.2rem;
   button {
     outline: none;
     border: none;
@@ -234,8 +275,75 @@ const FlexContainer = styled.div`
 `;
 
 const StyledBuyingBackdrop = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  font-size: 1.2rem;
   background-image: linear-gradient(to top, #feada6 0%, #f5efef 100%);
   width: 80vw;
   height: 60vh;
-  padding-top: 2rem;
+  border: 4px solid white;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 8px 6px rgba(240, 101, 101, 0.5);
+  -moz-box-shadow: 0px 0px 8px 6px rgba(240, 101, 101, 0.5);
+  box-shadow: 0px 0px 8px 6px rgba(240, 101, 101, 0.5);
+
+  input {
+    margin-left: 2rem;
+    width: 3rem;
+    border-radius: 25px;
+    text-align: center;
+  }
+
+  button {
+    color: red;
+    background-color: whitesmoke;
+    align-self: center;
+    margin: 1rem;
+  }
+
+  .back {
+    grid-area: 3 / 1 / 4 / 2;
+  }
+
+  .buy {
+    grid-area: 3 / 2 / 4 / 3;
+    color: white;
+    background-color: green;
+  }
+
+  form {
+    grid-area: 2 / 1 / 3 / 3;
+  }
+`;
+
+const Border = styled.div`
+  grid-area: 1 / 1 / 2 / 3;
+  border: 3px solid white;
+  margin: 0.5rem;
+`;
+
+const GoldBar = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 2rem;
+  position: absolute;
+  top: 5vh;
+  height: 10vh;
+  width: fit-content;
+  border: 4px solid gainsboro;
+  border-radius: 50%;
+  background-color: #efea5a;
+  align-self: center;
+  -webkit-box-shadow: 0px 0px 100px 20px rgba(239, 234, 90, 0.2);
+  -moz-box-shadow: 0px 0px 100px 20px rgba(239, 234, 90, 0.2);
+  box-shadow: 0px 0px 100px 20px rgba(239, 234, 90, 0.2);
+`;
+
+const FlexBackdrop = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

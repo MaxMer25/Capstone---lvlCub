@@ -536,18 +536,3 @@ const StyledReviewElements = styled.div`
     margin: 2%;
   }
 `;
-
-const StyledGoldWallet = styled.div`
-  position: fixed;
-  overflow: hidden;
-  background-color: gold;
-  left: 1vw;
-  bottom: 15%;
-  display: flex;
-  align-items: baseline;
-  border: 4px solid white;
-  border-radius: 20px;
-  width: 30%;
-  height: 100px;
-  padding-left: 3vw;
-`;
