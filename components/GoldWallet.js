@@ -9,10 +9,8 @@ export const GoldWallet = () => {
     user.type === "Child" && (
       <>
         <StyledGoldWallet>
-          <div>
-            {user.gold}
-            <CubCoin className="cubImage" />
-          </div>
+          {user.gold}
+          <CubCoin className="cubImage" />
         </StyledGoldWallet>
       </>
     )
@@ -21,15 +19,23 @@ export const GoldWallet = () => {
 
 const StyledGoldWallet = styled.div`
   position: fixed;
+  font-size: 2rem;
   overflow: hidden;
   background-color: gold;
-  left: 1vw;
+  left: 1rem;
   bottom: 15%;
   display: flex;
+  justify-content: center;
   align-items: baseline;
   border: 4px solid white;
   border-radius: 20px;
-  width: 30%;
-  height: 100px;
-  padding-left: 3vw;
+  width: 10rem;
+  height: 6rem;
+  -webkit-filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.7));
+  filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.7));
+
+  :hover {
+    opacity: 0.5;
+    z-index: 0;
+  }
 `;

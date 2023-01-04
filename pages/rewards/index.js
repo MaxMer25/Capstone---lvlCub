@@ -270,7 +270,8 @@ const StyledLayout = styled.div`
   justify-content: space-around;
   width: 40vw;
   margin-left: auto;
-  margin-right: auto; ;
+  margin-right: auto;
+  margin-bottom: 12vh;
 `;
 
 const StyledList = styled.div`
