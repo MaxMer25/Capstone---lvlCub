@@ -22,6 +22,7 @@ export default function Reward() {
   const [title, setTitle] = useState("");
   const [cost, setCost] = useState("");
   const [sumCost, setSumCost] = useState("");
+  const [buyAmount, setBuyAmount] = useState(null);
 
   useEffect(() => {
     const getRewards = async () => {
@@ -53,6 +54,7 @@ export default function Reward() {
 
   function currentCost(event) {
     setSumCost(event.target.value * cost);
+    setBuyAmount(event.target.value);
   }
 
   function handleBuyButton() {
@@ -60,12 +62,13 @@ export default function Reward() {
       alert("you don't have enough coins!");
     } else {
       let newGold = user.gold - sumCost;
+      const newRewards = {...user.rewards, [title]: buyAmount};
       const newUserGold = {
         id: {_id: user.id},
-        change: {gold: newGold},
+        change: {gold: newGold, rewards: newRewards},
       };
       handleBuy(newUserGold);
-      setUser({...user, gold: newGold});
+      setUser({...user, gold: newGold, rewards: newRewards});
     }
   }
 

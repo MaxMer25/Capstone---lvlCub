@@ -17,6 +17,9 @@ const UserSchema = new mongoose.Schema({
   level: {
     type: Number,
   },
+  rewards: {
+    type: Object,
+  },
 });
 
 export const User =
