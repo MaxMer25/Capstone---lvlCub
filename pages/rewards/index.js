@@ -13,7 +13,7 @@ import {Button} from "@mui/material";
 import {Backdrop} from "@mui/material";
 
 export default function Reward() {
-  const {user} = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
   const [rewards, setRewards] = useState([]);
   const [shouldReload, setShouldReload] = useState(true);
   const [load, setLoad] = useState(false);
@@ -51,9 +51,39 @@ export default function Reward() {
     setBackdrop(!backdrop);
   }
 
-  function test(event) {
+  function currentCost(event) {
     setSumCost(event.target.value * cost);
   }
+
+  function handleBuyButton() {
+    if (sumCost > user.gold) {
+      alert("you don't have enough coins!");
+    } else {
+      let newGold = user.gold - sumCost;
+      const newUserGold = {
+        id: {_id: user.id},
+        change: {gold: newGold},
+      };
+      handleBuy(newUserGold);
+      setUser({...user, gold: newGold});
+    }
+  }
+
+  const handleBuy = async taskObject => {
+    const response = await fetch("/api/user", {
+      method: "PATCH",
+      body: JSON.stringify(taskObject),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      alert("Updated successfully!");
+      setShouldReload(true);
+    } else {
+      alert("Update failed");
+    }
+  };
 
   return (
     <>
@@ -120,7 +150,7 @@ export default function Reward() {
                         <form>
                           <label htmlFor="amount">Amount:</label>
                           <input
-                            onInput={test}
+                            onInput={currentCost}
                             type="number"
                             name="amount"
                             min="0"
@@ -137,7 +167,11 @@ export default function Reward() {
                         >
                           CANCEL
                         </Button>
-                        <Button className="buy" variant="contained">
+                        <Button
+                          className="buy"
+                          onClick={handleBuyButton}
+                          variant="contained"
+                        >
                           Buy
                         </Button>
                       </StyledBuyingBackdrop>
