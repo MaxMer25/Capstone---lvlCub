@@ -16,7 +16,6 @@ import {useApi} from "../../hooks/useApi";
 import {Fragment} from "react";
 import AddButton from "../../components/Buttons/AddButton";
 import {Backdrop} from "@mui/material";
-const hallo = "hallo";
 
 export default function Home() {
   const {user} = useContext(UserContext);
