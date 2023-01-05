@@ -353,6 +353,10 @@ const StyledList = styled.div`
     border-radius: 2rem;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   img {
     grid-area: imageContainer;
     height: 100%;

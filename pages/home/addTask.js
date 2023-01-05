@@ -203,10 +203,18 @@ const StyledForm = styled.form`
     color: rgba(0, 0, 0, 0);
   }
 
+  input::file-selector-button {
+    background-color: #33ca7f;
+    border: none;
+    border-radius: 20px;
+    color: white;
+  }
+
   button {
     position: absolute;
     bottom: 20vh;
     align-self: center;
+    background-color: #33ca7f;
   }
 
   fieldset {
