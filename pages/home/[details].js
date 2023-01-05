@@ -5,6 +5,7 @@ import Image from "next/image";
 import {useApi} from "../../hooks/useApi";
 import CubCoin from "../../components/CubCoin";
 import ExperienceCoin from "../../components/ExperienceCoin";
+import {Button} from "@mui/material";
 
 const ProductDetail = () => {
   const router = useRouter();
@@ -45,6 +46,9 @@ const ProductDetail = () => {
               {task.experience} <ExperienceCoin />
             </p>
           </p>
+          <Button variant="contained" href="/home/tasks/">
+            Back
+          </Button>
         </>
       ) : (
         <p>Loading...</p>

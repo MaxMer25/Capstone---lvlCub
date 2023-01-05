@@ -19,6 +19,7 @@ export default function Reward() {
   const [sumCost, setSumCost] = useState("");
   const [buyAmount, setBuyAmount] = useState(null);
   const [selectedReward, setSelectedReward] = useState(null);
+  const [successBackdrop, setSuccessBackdrop] = useState(false);
 
   function closeBackdrop() {
     setSelectedReward(null);
@@ -26,6 +27,14 @@ export default function Reward() {
 
   function openBackdrop(reward) {
     setSelectedReward(reward);
+  }
+
+  function openSuccessBackdrop() {
+    setSuccessBackdrop(true);
+  }
+
+  function closeSuccessBackdrop() {
+    setSuccessBackdrop(false);
   }
 
   function currentCost(event) {
@@ -45,6 +54,7 @@ export default function Reward() {
       };
       handleBuy(newUserGold);
       setUser({...user, gold: newGold, rewards: newRewards});
+      openSuccessBackdrop();
     }
   }
 
@@ -57,7 +67,7 @@ export default function Reward() {
       },
     });
     if (response.ok) {
-      alert("Updated successfully!");
+      openSuccessBackdrop();
       closeBackdrop();
     } else {
       alert("Update failed");
@@ -156,6 +166,18 @@ export default function Reward() {
                   </Button>
                 </StyledBuyingBackdrop>
               </FlexBackdrop>
+            </Backdrop>
+          )}
+          {successBackdrop && (
+            <Backdrop
+              sx={{
+                color: "fff",
+                zIndex: theme => theme.zIndex.drawer + 1,
+              }}
+              open
+              onClick={closeSuccessBackdrop}
+            >
+              <SuccessBackdrop>That worked!</SuccessBackdrop>
             </Backdrop>
           )}
         </StyledList>
@@ -305,4 +327,20 @@ const Loader = styled.div`
       transform: rotate(1turn);
     }
   }
+`;
+
+const SuccessBackdrop = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 2rem;
+  background-image: linear-gradient(to top, #feada6 0%, #f5efef 100%);
+  width: 60vw;
+  height: 20vh;
+  border: 4px solid white;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 8px 6px rgba(240, 101, 101, 0.5);
+  -moz-box-shadow: 0px 0px 8px 6px rgba(240, 101, 101, 0.5);
+  box-shadow: 0px 0px 8px 6px rgba(240, 101, 101, 0.5);
 `;

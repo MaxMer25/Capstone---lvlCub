@@ -189,7 +189,7 @@ export default function Home() {
                             onClick={() => {
                               handleConfirmation(userData);
                             }}
-                            className="btn"
+                            className="btn yes"
                             variant="contained"
                           >
                             YES
@@ -405,6 +405,7 @@ const StyledListElements = styled.div`
 
   .done {
     grid-area: done;
+    background-color: #33ca7f;
   }
 `;
 
@@ -415,6 +416,9 @@ const RewardContainer = styled.div`
   color: white;
   border-radius: 20px;
   grid-area: goldContainer;
+  -webkit-box-shadow: 0px 0px 10px 15px rgba(240, 101, 101, 0.3);
+  -moz-box-shadow: 0px 0px 10px 15px rgba(240, 101, 101, 0.3);
+  box-shadow: 0px 0px 10px 15px rgba(240, 101, 101, 0.3);
 
   p {
     font-size: 1.4em;
@@ -458,4 +462,12 @@ const FlexBackdrop = styled.div`
   width: 40vh;
   border-radius: 20px;
   padding: 1rem;
+
+  button {
+    border-radius: 20px;
+  }
+
+  .yes {
+    background-color: #33ca7f;
+  }
 `;
