@@ -1,5 +1,5 @@
 import Head from "next/head";
-import {useState, useEffect, useContext} from "react";
+import {useState, useContext} from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,49 +11,25 @@ import SmallCubCoin from "../../components/SmallCubCoin";
 import TinyCubCoin from "../../components/TinyCubCoin";
 import {Button} from "@mui/material";
 import {Backdrop} from "@mui/material";
+import {useApi} from "../../hooks/useApi";
 
 export default function Reward() {
   const {user, setUser} = useContext(UserContext);
-  const [rewards, setRewards] = useState([]);
-  const [shouldReload, setShouldReload] = useState(true);
-  const [load, setLoad] = useState(false);
-  const [backdrop, setBackdrop] = useState(false);
-  const [imageSource, setImageSource] = useState(rewards.image);
-  const [title, setTitle] = useState("");
-  const [cost, setCost] = useState("");
+  const [rewards, load] = useApi("/api/rewards/");
   const [sumCost, setSumCost] = useState("");
   const [buyAmount, setBuyAmount] = useState(null);
+  const [selectedReward, setSelectedReward] = useState(null);
 
-  useEffect(() => {
-    const getRewards = async () => {
-      try {
-        setLoad(!load);
-        const response = await fetch("/api/rewards/");
-        if (response.ok) {
-          const data = await response.json();
-          setRewards(data);
-          setLoad(false);
-        } else {
-          throw new Error(
-            `Fetch fehlgeschlagen mit Status: ${response.status}`
-          );
-        }
-      } catch (error) {
-        alert(error.message);
-      }
-      setShouldReload(false);
-    };
-    if (shouldReload) {
-      getRewards();
-    }
-  }, [shouldReload]);
+  function closeBackdrop() {
+    setSelectedReward(null);
+  }
 
-  function handleToggle() {
-    setBackdrop(!backdrop);
+  function openBackdrop(reward) {
+    setSelectedReward(reward);
   }
 
   function currentCost(event) {
-    setSumCost(event.target.value * cost);
+    setSumCost(event.target.value * selectedReward.cost);
     setBuyAmount(event.target.value);
   }
 
@@ -62,7 +38,7 @@ export default function Reward() {
       alert("you don't have enough coins!");
     } else {
       let newGold = user.gold - sumCost;
-      const newRewards = {...user.rewards, [title]: buyAmount};
+      const newRewards = {...user.rewards, [selectedReward.title]: buyAmount};
       const newUserGold = {
         id: {_id: user.id},
         change: {gold: newGold, rewards: newRewards},
@@ -82,7 +58,7 @@ export default function Reward() {
     });
     if (response.ok) {
       alert("Updated successfully!");
-      setShouldReload(true);
+      closeBackdrop();
     } else {
       alert("Update failed");
     }
@@ -114,76 +90,74 @@ export default function Reward() {
                   <SmallCubCoin />
                   <Button
                     onClick={() => {
-                      handleToggle();
-                      setImageSource(reward.image);
-                      setTitle(reward.title);
-                      setCost(reward.cost);
+                      openBackdrop(reward);
                     }}
                   >
                     🛒
                   </Button>
-                  <Backdrop
-                    sx={{
-                      color: "fff",
-                      zIndex: theme => theme.zIndex.drawer + 1,
-                    }}
-                    open={backdrop ? true : false}
-                  >
-                    <FlexBackdrop>
-                      <GoldBar>
-                        <Loader />
-                        <p>{user.gold}</p>
-                        <SmallCubCoin />
-                      </GoldBar>
-                      <StyledBuyingBackdrop>
-                        <Border>
-                          <h2>How many do you want to purchase?</h2>
-                          <Image
-                            id={reward._id}
-                            width={125}
-                            height={100}
-                            src={imageSource}
-                            alt="picture of a reward"
-                          ></Image>
-                          <p>
-                            {title}({cost}
-                            <TinyCubCoin />)
-                          </p>
-                        </Border>
-                        <form>
-                          <label htmlFor="amount">Amount:</label>
-                          <input
-                            onInput={currentCost}
-                            type="number"
-                            name="amount"
-                            min="0"
-                            step="1"
-                          ></input>
-                          <h3>Cost</h3>
-                          <p>{sumCost}</p>
-                        </form>
-
-                        <Button
-                          className="back"
-                          variant="contained"
-                          onClick={handleToggle}
-                        >
-                          CANCEL
-                        </Button>
-                        <Button
-                          className="buy"
-                          onClick={handleBuyButton}
-                          variant="contained"
-                        >
-                          Buy
-                        </Button>
-                      </StyledBuyingBackdrop>
-                    </FlexBackdrop>
-                  </Backdrop>
                 </FlexContainer>
               </StyledListElement>
             );
           })}
+          {selectedReward && (
+            <Backdrop
+              sx={{
+                color: "fff",
+                zIndex: theme => theme.zIndex.drawer + 1,
+              }}
+              open
+            >
+              <FlexBackdrop>
+                <GoldBar>
+                  <Loader />
+                  <p>{user.gold}</p>
+                  <SmallCubCoin />
+                </GoldBar>
+                <StyledBuyingBackdrop>
+                  <Border>
+                    <h2>How many do you want to purchase?</h2>
+                    <Image
+                      width={125}
+                      height={100}
+                      src={selectedReward.image}
+                      alt="picture of a reward"
+                    ></Image>
+                    <p>
+                      {selectedReward.title}({selectedReward.cost}
+                      <TinyCubCoin />)
+                    </p>
+                  </Border>
+                  <form>
+                    <label htmlFor="amount">Amount:</label>
+                    <input
+                      onInput={currentCost}
+                      type="number"
+                      name="amount"
+                      min="0"
+                      step="1"
+                    ></input>
+                    <h3>Cost</h3>
+                    <p>{sumCost}</p>
+                  </form>
+
+                  <Button
+                    className="back"
+                    variant="contained"
+                    onClick={closeBackdrop}
+                  >
+                    CANCEL
+                  </Button>
+                  <Button
+                    className="buy"
+                    onClick={handleBuyButton}
+                    variant="contained"
+                  >
+                    Buy
+                  </Button>
+                </StyledBuyingBackdrop>
+              </FlexBackdrop>
+            </Backdrop>
+          )}
         </StyledList>
         {user.type === "Parent" && (
           <Link href="/rewards/addReward">
@@ -283,6 +257,10 @@ const StyledList = styled.div`
 `;
 
 const StyledListElement = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   border: 4px solid white;
   border-radius: 20px;
   padding: 0.2rem;

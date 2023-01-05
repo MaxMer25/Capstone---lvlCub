@@ -1,32 +1,15 @@
 import {useRouter} from "next/router";
 import Head from "next/head";
-import {useEffect, useState} from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import {useApi} from "../../hooks/useApi";
+import CubCoin from "../../components/CubCoin";
+import ExperienceCoin from "../../components/ExperienceCoin";
 
 const ProductDetail = () => {
-  const [task, setTask] = useState(null);
   const router = useRouter();
   const {details} = router.query;
-
-  useEffect(() => {
-    const getTask = async () => {
-      try {
-        const response = await fetch(`/api/tasks/${details}`);
-        if (response.ok) {
-          const data = await response.json();
-          setTask(data);
-        } else {
-          throw new Error(`Fetch failed with status code ${response.status}`);
-        }
-      } catch (error) {
-        alert(error);
-      }
-    };
-    if (details) {
-      getTask();
-    }
-  }, [details]);
+  const [task] = useApi(`/api/tasks/${details}`);
 
   return (
     <StyledLayout>
@@ -42,7 +25,6 @@ const ProductDetail = () => {
             width={175}
             height={122}
           ></Image>
-          <p>{task.forWhom}</p>
           <p>
             Please do the following task:
             <br></br>
@@ -51,11 +33,17 @@ const ProductDetail = () => {
           <p>{`"${task.details}"`}</p>
           <p>
             Gold:
-            <p className="goldIndicator"> {task.gold}</p>
+            <p className="goldIndicator">
+              {" "}
+              {task.gold} <CubCoin />
+            </p>
           </p>
           <p>
             Experience:
-            <p className="experienceIndicator"> {task.experience}</p>
+            <p className="experienceIndicator">
+              {" "}
+              {task.experience} <ExperienceCoin />
+            </p>
           </p>
         </>
       ) : (
@@ -68,12 +56,16 @@ const ProductDetail = () => {
 export default ProductDetail;
 
 const StyledLayout = styled.div`
+  width: 90vw;
+  height: 70vh;
   text-align: center;
-  margin-bottom: 20%;
-  font-size: 26px;
-  font-weight: 600;
-  border: 10px solid salmon;
-  border-style: inset;
+  font-size: 2rem;
+  font-weight: bold;
+  border: 4px solid white;
+  border-radius: 25px;
+  margin: auto;
+  margin-top: 5vh;
+  padding-top: 2rem;
   background: rgb(103, 17, 17);
   background: linear-gradient(
     120deg,

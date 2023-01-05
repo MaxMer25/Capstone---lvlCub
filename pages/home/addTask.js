@@ -10,7 +10,8 @@ export default function AddTask() {
   const [task, setTask] = useState({
     title: "",
     details: "",
-    image: "",
+    image:
+      "https://via.placeholder.com/150x125/FFFF00/000000?text=Placeholder+Image",
     forWhom: "",
     whoDid: "",
     until: "",
@@ -54,7 +55,7 @@ export default function AddTask() {
       <StyledForm>
         {/*-----------title----------- */}
 
-        <div className="title">
+        <div>
           <label htmlFor="title">Title</label>
           <input
             onChange={event => handle(event)}
@@ -68,7 +69,7 @@ export default function AddTask() {
 
         {/*-----------details----------- */}
 
-        <div className="details">
+        <div>
           <label htmlFor="details">Details</label>
           <input
             onChange={event => handle(event)}
@@ -81,7 +82,7 @@ export default function AddTask() {
 
         {/*-----------file----------- */}
 
-        <div className="fileUpload">
+        <div>
           <label htmlFor="picture">Choose a picture</label>
           <input
             onChange={handleChange}
@@ -90,41 +91,19 @@ export default function AddTask() {
             id="image"
             placeholder="Add a picture"
           ></input>
-          <Image
-            src={file}
-            alt="Preview of uploaded picture"
-            width={150}
-            height={125}
-          />
-        </div>
-
-        {/*-----------checkboxes----------- */}
-
-        <div className="checkboxes">
-          <fieldset>
-            <legend>general task or for one specific child?</legend>
-            <label htmlFor="general">General</label>
-            <input type="checkbox" name="general" checked></input>
-            <label htmlFor="first">First Child</label>
-            <input type="checkbox" name="first"></input>
-          </fieldset>
-        </div>
-
-        {/*-----------calendar----------- */}
-
-        <div className="calendar">
-          <label htmlFor="until">by when should it be done?</label>
-          <input
-            onChange={event => handle(event)}
-            type="date"
-            name="until"
-            id="until"
-          ></input>
+          {file && (
+            <Image
+              src={file}
+              alt="Preview of uploaded picture"
+              width={150}
+              height={125}
+            />
+          )}
         </div>
 
         {/*-----------rewards----------- */}
 
-        <div className="rewards">
+        <div>
           <fieldset>
             <legend>Rewards:</legend>
             <label htmlFor="gold">Gold</label>
@@ -148,9 +127,14 @@ export default function AddTask() {
 
         {/*-----------submit----------- */}
 
-        <button onClick={handleSubmit} className="submitButton" type="submit">
+        <Button
+          variant="contained"
+          onClick={handleSubmit}
+          className="submitButton"
+          type="submit"
+        >
           Create Task!
-        </button>
+        </Button>
       </StyledForm>
       {popup && (
         <Popup>
@@ -178,81 +162,57 @@ const StyledForm = styled.form`
   font-size: 1.3em;
   border: 4px solid white;
   border-radius: 20px;
-  width: min(100% - 2rem, 600px);
-  height: 80vh;
   margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
   padding: 5%;
   background-color: #fcb8b0;
   box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
-
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-
-  .title {
-    grid-area: 1 / 1 / 2 / 3;
-  }
-  .details {
-    grid-area: 2 / 1 / 3 / 3;
-  }
-  .fileUpload {
-    grid-area: 3 / 1 / 4 / 2;
-  }
-  .checkboxes {
-    grid-area: 3 / 2 / 4 / 3;
-  }
-  .calendar {
-    grid-area: 4 / 1 / 5 / 2;
-  }
-  .rewards {
-    grid-area: 4 / 2 / 5 / 3;
-  }
-  .submitButton {
-    grid-area: 5 / 1 / 6 / 3;
-    width: 50%;
-    height: 50%;
-    padding: 2%;
-    margin: 2%;
-    box-sizing: border-box;
-    border-radius: 2%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10%;
-  }
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  height: 80vh;
+  padding: 2%;
+  margin: 2%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
 
   label {
     display: inline-block;
-    width: 5em;
     padding: 0 1em;
   }
 
   input[type="text"],
   [type="number"] {
-    width: 100%;
-    padding: 5%;
+    text-align: center;
+    width: 90%;
+    padding: 1rem;
     margin: 2%;
     box-sizing: border-box;
-    border-radius: 2%;
+    border-radius: 25px;
   }
 
   input[type="file"] {
-    width: 100%;
     padding: 5%;
-    margin: 2%;
+    margin-left: 7rem;
     box-sizing: border-box;
     border-radius: 2%;
     color: rgba(0, 0, 0, 0);
   }
 
-  input[type="date"] {
-    background-color: lightskyblue;
-    color: white;
-    font-size: 1.1em;
-    border: none;
+  button {
+    position: absolute;
+    bottom: 20vh;
+    align-self: center;
+  }
+
+  fieldset {
+    border: 2px solid gold;
+    border-radius: 25px;
+    margin-top: 2rem;
   }
 `;
 

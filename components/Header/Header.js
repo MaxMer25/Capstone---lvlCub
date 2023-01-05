@@ -6,6 +6,7 @@ export default function Header() {
     <StyledHeader>
       <Image
         src="/testlogo2.png"
+        priority
         alt="picture of something"
         width={150}
         height={150}

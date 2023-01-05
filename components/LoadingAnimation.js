@@ -5,7 +5,7 @@ export const LoadingAnimation = () => {
   return (
     <StyledLoading>
       <div className="loadingParent">
-        <div class="custom-loader"></div>
+        <div className="custom-loader"></div>
         <h2>Loading.. please give me a second 🐯</h2>
       </div>
     </StyledLoading>

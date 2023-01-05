@@ -1,5 +1,5 @@
 import Head from "next/head";
-import {useState, useEffect, useContext} from "react";
+import {useState, useContext} from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,64 +12,14 @@ import CubCoin from "../../components/CubCoin";
 import ExperienceCoin from "../../components/ExperienceCoin";
 import LevelHeader from "../../components/LevelHeader/LevelHeader";
 import {GoldWallet} from "../../components/GoldWallet";
+import {useApi} from "../../hooks/useApi";
+import {Fragment} from "react";
 
 export default function Home() {
   const {user} = useContext(UserContext);
-  const [tasks, setTasks] = useState([]);
-  const [shouldReload, setShouldReload] = useState(true);
-  const [load, setLoad] = useState(false);
   const [popup, setPopup] = useState(false);
-  const [fetchUser, setFetchUser] = useState([]);
-
-  // get data
-
-  useEffect(() => {
-    const getTasks = async () => {
-      try {
-        setLoad(!load);
-        const response = await fetch("/api/tasks/");
-        if (response.ok) {
-          const data = await response.json();
-          setTasks(data);
-          setLoad(false);
-        } else {
-          throw new Error(
-            `Fetch fehlgeschlagen mit Status: ${response.status}`
-          );
-        }
-      } catch (error) {
-        alert(error.message);
-      }
-      setShouldReload(false);
-    };
-    if (shouldReload) {
-      getTasks();
-    }
-  }, [shouldReload]);
-
-  // get userData
-
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const response = await fetch("/api/user/");
-        if (response.ok) {
-          const data = await response.json();
-          setFetchUser(data);
-        } else {
-          throw new Error(
-            `Fetch fehlgeschlagen mit Status: ${response.status}`
-          );
-        }
-      } catch (error) {
-        alert(error.message);
-      }
-      setShouldReload(false);
-    };
-    if (shouldReload) {
-      getUser();
-    }
-  }, [shouldReload]);
+  const [tasks, taskLoading] = useApi("/api/tasks/");
+  const [fetchUser] = useApi("/api/user/");
 
   // Patching tasks
 
@@ -83,7 +33,6 @@ export default function Home() {
     });
     if (response.ok) {
       alert("Updated successfully!");
-      setShouldReload(true);
     } else {
       alert("Update failed");
     }
@@ -100,7 +49,6 @@ export default function Home() {
     });
     if (response.ok) {
       alert("Updated successfully!");
-      setShouldReload(true);
     } else {
       alert("Update failed");
     }
@@ -147,7 +95,7 @@ export default function Home() {
       </Head>
       {user.type === "Parent" && <Header />}
       {user.type === "Child" && <LevelHeader />}
-      {load && <LoadingAnimation />}
+      {taskLoading && <LoadingAnimation />}
       <StyledList>
         {/*-- Mapped tasks for children --*/}
 
@@ -155,8 +103,8 @@ export default function Home() {
           tasks.map(task => {
             if (task.review !== "in review" && task.review !== "reviewed") {
               return (
-                <>
-                  <StyledListElements key={task._id}>
+                <Fragment key={task._id}>
+                  <StyledListElements>
                     <h2>{task.title}</h2>
                     <Image
                       priority
@@ -197,7 +145,7 @@ export default function Home() {
                       Done
                     </Button>
                   </StyledListElements>
-                </>
+                </Fragment>
               );
             }
           })}
