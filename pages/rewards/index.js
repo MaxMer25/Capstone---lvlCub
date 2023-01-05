@@ -2,7 +2,6 @@ import Head from "next/head";
 import {useState, useContext} from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import Link from "next/link";
 import {UserContext} from "../../components/UserContext";
 import Header from "../../components/Header/Header";
 import {LoadingAnimation} from "../../components/LoadingAnimation";
@@ -12,7 +11,7 @@ import TinyCubCoin from "../../components/TinyCubCoin";
 import {Button} from "@mui/material";
 import {Backdrop} from "@mui/material";
 import {useApi} from "../../hooks/useApi";
-import Addbutton from "../../components/Buttons/Addbutton";
+import AddButton from "../../components/Buttons/AddButton";
 
 export default function Reward() {
   const {user, setUser} = useContext(UserContext);
@@ -160,7 +159,7 @@ export default function Reward() {
             </Backdrop>
           )}
         </StyledList>
-        {user.type === "Parent" && <Addbutton endpoint="/rewards/addReward" />}
+        {user.type === "Parent" && <AddButton endpoint="/rewards/addReward" />}
       </StyledLayout>
       <GoldWallet />
     </>
@@ -200,16 +199,6 @@ const StyledListElement = styled.div`
   -webkit-box-shadow: 0px 0px 8px 6px rgba(240, 101, 101, 0.5);
   -moz-box-shadow: 0px 0px 8px 6px rgba(240, 101, 101, 0.5);
   box-shadow: 0px 0px 8px 6px rgba(240, 101, 101, 0.5);
-`;
-
-const StyledSvg = styled.svg`
-  position: fixed;
-  bottom: 15%;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  z-index: 1;
 `;
 
 const FlexContainer = styled.div`

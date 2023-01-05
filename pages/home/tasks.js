@@ -14,13 +14,17 @@ import LevelHeader from "../../components/LevelHeader/LevelHeader";
 import {GoldWallet} from "../../components/GoldWallet";
 import {useApi} from "../../hooks/useApi";
 import {Fragment} from "react";
-import Addbutton from "../../components/Buttons/Addbutton";
+import AddButton from "../../components/Buttons/AddButton";
+import {Backdrop} from "@mui/material";
 
 export default function Home() {
   const {user} = useContext(UserContext);
   const [popup, setPopup] = useState(false);
   const [tasks, taskLoading] = useApi("/api/tasks/");
   const [fetchUser] = useApi("/api/user/");
+  const [backdrop, setBackdrop] = useState(false);
+  const [taskData, setTaskData] = useState({});
+  const [rewardData, setRewardData] = useState({});
 
   // Patching tasks
 
@@ -32,12 +36,10 @@ export default function Home() {
         "Content-Type": "application/json",
       },
     });
-    if (response.ok) {
-      alert("Updated successfully!");
-    } else {
+    if (!response.ok) {
       alert("Update failed");
     }
-    setPopup(false);
+    closeBackdrop();
   }
 
   async function handleRewards(taskObject) {
@@ -48,11 +50,17 @@ export default function Home() {
         "Content-Type": "application/json",
       },
     });
-    if (response.ok) {
-      alert("Updated successfully!");
-    } else {
+    if (!response.ok) {
       alert("Update failed");
     }
+  }
+
+  function openBackdrop() {
+    setBackdrop(true);
+  }
+
+  function closeBackdrop() {
+    setBackdrop(false);
   }
 
   function updateGoldAndExperience(
@@ -81,12 +89,10 @@ export default function Home() {
 
     const restExperience = newExperience % maxValue;
 
-    const rewards = {
+    setRewardData({
       id: {name: whoDid},
       change: {experience: restExperience, level: newChildLevel, gold: newGold},
-    };
-
-    handleRewards(rewards);
+    });
   }
 
   return (
@@ -189,15 +195,13 @@ export default function Home() {
                   </Link>
                   <Button
                     onClick={() => {
-                      setPopup({
+                      openBackdrop();
+                      setTaskData({
                         id: {_id: task._id},
                         change: {review: "reviewed"},
                       });
                       fetchUser.find(x => {
                         if (x.name === task.whoDid) {
-                          // setUserExperience(x.experience);
-                          // setUserGold(x.gold);
-                          // setUserLevel(x.level);
                           updateGoldAndExperience(
                             task.experience,
                             task.gold,
@@ -215,6 +219,38 @@ export default function Home() {
                   >
                     Review
                   </Button>
+                  {backdrop && (
+                    <Backdrop
+                      sx={{
+                        color: "aaa",
+                        zIndex: theme => theme.zIndex.drawer + 1,
+                      }}
+                      open
+                      onClick={closeBackdrop}
+                    >
+                      <FlexBackdrop>
+                        <h2>are you sure?</h2>
+                        <Button
+                          onClick={() => setPopup(false)}
+                          className="btn"
+                          color="error"
+                          variant="contained"
+                        >
+                          NO
+                        </Button>
+                        <Button
+                          onClick={() => {
+                            handleConfirmation(taskData);
+                            handleRewards(rewardData);
+                          }}
+                          className="btn"
+                          variant="contained"
+                        >
+                          YES
+                        </Button>
+                      </FlexBackdrop>
+                    </Backdrop>
+                  )}
                 </StyledReviewElements>
               );
           })}
@@ -278,7 +314,7 @@ export default function Home() {
           </StyledPopup>
         )}
       </StyledList>
-      {user.type === "Parent" && <Addbutton endpoint="/home/addTask" />}
+      {user.type === "Parent" && <AddButton endpoint="/home/addTask" />}
       <GoldWallet />
     </>
   );
@@ -407,4 +443,15 @@ const StyledReviewElements = styled.div`
   .el {
     margin: 2%;
   }
+`;
+
+const FlexBackdrop = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: white;
+  height: 40vh;
+  width: 40vh;
+  border-radius: 20px;
+  padding: 1rem;
 `;
