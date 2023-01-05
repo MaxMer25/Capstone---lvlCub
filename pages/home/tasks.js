@@ -134,7 +134,7 @@ export default function Home() {
                       src={task.image}
                       alt="picture of a task"
                     />
-                    <StyledGoldContainer>
+                    <RewardContainer>
                       <h3>REWARDS</h3>
                       <p>
                         {task.gold}
@@ -144,7 +144,7 @@ export default function Home() {
                         {task.experience}
                         <ExperienceCoin />
                       </p>
-                    </StyledGoldContainer>
+                    </RewardContainer>
                     <Link href={`/home/${task._id}`}>
                       <Button
                         className="taskButtons detail"
@@ -223,7 +223,7 @@ export default function Home() {
                     src={task.image}
                     alt="picture of a task"
                   />
-                  <StyledGoldContainer className="reviewGoldContainer el">
+                  <RewardContainer className="reviewGoldContainer el">
                     <h3>REWARDS</h3>
                     <p>
                       {task.gold}
@@ -233,7 +233,7 @@ export default function Home() {
                       {task.experience}
                       <ExperienceCoin />
                     </p>
-                  </StyledGoldContainer>
+                  </RewardContainer>
                   <Link href={`/home/${task._id}`}>
                     <Button className="taskButtons btn1 el" variant="contained">
                       Details
@@ -316,7 +316,7 @@ export default function Home() {
                     src={task.image}
                     alt="picture of a task"
                   />
-                  <StyledGoldContainer>
+                  <RewardContainer>
                     <h3>REWARDS</h3>
                     <p>
                       {task.gold}
@@ -326,7 +326,7 @@ export default function Home() {
                       {task.experience}
                       <ExperienceCoin />
                     </p>
-                  </StyledGoldContainer>
+                  </RewardContainer>
                   <Link href={`/home/${task._id}`}>
                     <Button className="taskButtons" variant="contained">
                       Details
@@ -377,7 +377,7 @@ const StyledListElements = styled.div`
     "detailsContainer done";
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  background: #fff4e6;
+  background: #66717e;
   padding: 5%;
   gap: 5%;
   margin-bottom: 10%;
@@ -408,39 +408,16 @@ const StyledListElements = styled.div`
   }
 `;
 
-const StyledGoldContainer = styled.div`
+const RewardContainer = styled.div`
   border: 3px solid black;
   text-align: center;
-  background: #d89848;
+  background: #001021;
+  color: white;
   border-radius: 20px;
   grid-area: goldContainer;
 
   p {
     font-size: 1.4em;
-  }
-`;
-
-const StyledPopup = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 10%;
-  margin-left: 0 auto;
-  margin-top: 1vh;
-  font-size: 1.1em;
-  width: 80%;
-  height: fit-content;
-  text-align: center;
-  font-weight: bold;
-  border: 4px solid white;
-  border-radius: 20px;
-  padding: 5%;
-  background-color: lightgreen;
-  transition: 1s;
-  box-shadow: 8px 8px 15px 5px rgba(0, 0, 0, 0.5);
-
-  .btn {
-    margin-left: 1vh;
-    margin-top: 1vh;
   }
 `;
 
