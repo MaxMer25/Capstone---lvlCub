@@ -3,7 +3,7 @@ import {useCallback, useEffect, useState} from "react";
 export const useApi = endpoint => {
   const [load, setLoad] = useState(false);
   const [response, setResponse] = useState([]);
-  const getRewards = useCallback(async () => {
+  const fetchFromApi = useCallback(async () => {
     try {
       setLoad(true);
       const response = await fetch(endpoint);
@@ -19,7 +19,7 @@ export const useApi = endpoint => {
     }
   }, [endpoint]);
   useEffect(() => {
-    getRewards();
-  }, [getRewards]);
-  return [response, load, getRewards];
+    fetchFromApi();
+  }, [fetchFromApi]);
+  return {response, load, fetchFromApi};
 };

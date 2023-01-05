@@ -15,7 +15,7 @@ import AddButton from "../../components/Buttons/AddButton";
 
 export default function Reward() {
   const {user, setUser} = useContext(UserContext);
-  const [rewards, load] = useApi("/api/rewards/");
+  const {response: rewards, load} = useApi("/api/rewards/");
   const [sumCost, setSumCost] = useState("");
   const [buyAmount, setBuyAmount] = useState(null);
   const [selectedReward, setSelectedReward] = useState(null);

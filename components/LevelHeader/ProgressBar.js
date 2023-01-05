@@ -7,7 +7,7 @@ const ProgressBar = () => {
   const {user} = useContext(UserContext);
   const [userExperience, setUserExperience] = useState(null);
   const [userLevel, setUserLevel] = useState(null);
-  const [fetchedUser] = useApi("/api/user/");
+  const {response: fetchedUser} = useApi("/api/user/");
 
   useEffect(() => {
     fetchedUser.find(x => {

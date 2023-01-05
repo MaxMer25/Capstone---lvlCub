@@ -19,8 +19,12 @@ import {Backdrop} from "@mui/material";
 
 export default function Home() {
   const {user} = useContext(UserContext);
-  const [tasks, taskLoading, fetchedTasks] = useApi("/api/tasks/");
-  const [fetchUser, _, fetchedUser] = useApi("/api/user/");
+  const {
+    response: tasks,
+    load: taskLoading,
+    fetchFromApi: fetchTasks,
+  } = useApi("/api/tasks/");
+  const {response, fetchFromApi: fetchUser} = useApi("/api/user/");
   const [backdrop, setBackdrop] = useState(false);
   const [taskData, setTaskData] = useState({});
   const [rewardData, setRewardData] = useState({});
@@ -42,7 +46,7 @@ export default function Home() {
     }
     closeBackdrop();
     closeChildBackdrop();
-    await fetchedTasks();
+    await fetchTasks();
   }
 
   async function handleRewards(taskObject) {
@@ -58,7 +62,7 @@ export default function Home() {
     }
     closeBackdrop();
     closeChildBackdrop();
-    await fetchedUser();
+    await fetchUser();
   }
 
   function openBackdrop() {
@@ -98,7 +102,6 @@ export default function Home() {
       newChildLevel++;
       newExperience = newExperience - maxValue;
       maxValue = maxValue + 150;
-      console.log(newExperience);
     }
 
     const restExperience = newExperience % maxValue;
@@ -246,7 +249,7 @@ export default function Home() {
                         id: {_id: task._id},
                         change: {review: "reviewed"},
                       });
-                      fetchUser.find(x => {
+                      response.find(x => {
                         if (x.name === task.whoDid) {
                           updateGoldAndExperience(
                             task.experience,

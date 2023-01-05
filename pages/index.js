@@ -12,7 +12,7 @@ import {useApi} from "../hooks/useApi";
 export default function Login() {
   const {user, setUser} = useContext(UserContext);
   const [popup, setPopup] = useState(false);
-  const [fetchedUser, load] = useApi("/api/user/");
+  const {response: fetchedUser, load} = useApi("/api/user/");
   const [userInfo] = useState({
     name: "",
     type: "Child",

@@ -10,7 +10,7 @@ import {Button} from "@mui/material";
 const ProductDetail = () => {
   const router = useRouter();
   const {details} = router.query;
-  const [task] = useApi(`/api/tasks/${details}`);
+  const {response: task} = useApi(`/api/tasks/${details}`);
 
   return (
     <StyledLayout>
