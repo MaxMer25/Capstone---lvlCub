@@ -2,7 +2,7 @@
   {
     "title": "Mit dem Hund rausgehen",
     "image": "/examples/dogexample.png",
-    "whoDid": "Jurian",
+    "whoDid": "",
     "details": "Lass ihn an der Leine",
     "gold": 250,
     "experience": 5000,
@@ -11,7 +11,7 @@
   {
     "title": "Einkaufen",
     "image": "/examples/groceryexample.png",
-    "whoDid": "Alrike",
+    "whoDid": "",
     "details": "Bitte Hundefutter mitbringen",
     "gold": 350,
     "experience": 150,
@@ -20,7 +20,7 @@
   {
     "title": "Zimmer aufräumen",
     "image": "/examples/roomexample.png",
-    "whoDid": "Max",
+    "whoDid": "",
     "details": "Bitte auch staubsaugen",
     "gold": 100,
     "experience": 50,
@@ -29,7 +29,7 @@
   {
     "title": "Blumen gießen",
     "image": "/examples/flowerexample.png",
-    "whoDid": "Max",
+    "whoDid": "",
     "details": "Nicht zu viel gießen",
     "gold": 100,
     "experience": 100,
@@ -38,7 +38,7 @@
   {
     "title": "Wäsche zusammenlegen",
     "image": "/examples/clothesexample.png",
-    "whoDid": "Jurian",
+    "whoDid": "",
     "details": "",
     "gold": 150,
     "experience": 150,

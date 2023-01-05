@@ -19,12 +19,13 @@ import {Backdrop} from "@mui/material";
 
 export default function Home() {
   const {user} = useContext(UserContext);
-  const [popup, setPopup] = useState(false);
-  const [tasks, taskLoading] = useApi("/api/tasks/");
-  const [fetchUser] = useApi("/api/user/");
+  const [tasks, taskLoading, fetchedTasks] = useApi("/api/tasks/");
+  const [fetchUser, _, fetchedUser] = useApi("/api/user/");
   const [backdrop, setBackdrop] = useState(false);
   const [taskData, setTaskData] = useState({});
   const [rewardData, setRewardData] = useState({});
+  const [userData, setUserData] = useState({});
+  const [childBackdrop, setChildBackdrop] = useState(false);
 
   // Patching tasks
 
@@ -40,6 +41,8 @@ export default function Home() {
       alert("Update failed");
     }
     closeBackdrop();
+    closeChildBackdrop();
+    await fetchedTasks();
   }
 
   async function handleRewards(taskObject) {
@@ -53,6 +56,9 @@ export default function Home() {
     if (!response.ok) {
       alert("Update failed");
     }
+    closeBackdrop();
+    closeChildBackdrop();
+    await fetchedUser();
   }
 
   function openBackdrop() {
@@ -61,6 +67,14 @@ export default function Home() {
 
   function closeBackdrop() {
     setBackdrop(false);
+  }
+
+  function openChildBackdrop() {
+    setChildBackdrop(true);
+  }
+
+  function closeChildBackdrop() {
+    setChildBackdrop(false);
   }
 
   function updateGoldAndExperience(
@@ -140,17 +154,49 @@ export default function Home() {
                       </Button>
                     </Link>
                     <Button
-                      onClick={() =>
-                        setPopup({
+                      onClick={() => {
+                        setUserData({
                           id: {_id: task._id},
                           change: {review: "in review", whoDid: user.name},
-                        })
-                      }
+                        });
+                        openChildBackdrop();
+                      }}
                       className="taskButtons done"
                       variant="contained"
                     >
                       Done
                     </Button>
+                    {childBackdrop && (
+                      <Backdrop
+                        sx={{
+                          color: "aaa",
+                          zIndex: theme => theme.zIndex.drawer + 1,
+                        }}
+                        open
+                        onClick={closeBackdrop}
+                      >
+                        <FlexBackdrop>
+                          <h2>are you sure?</h2>
+                          <Button
+                            onClick={() => closeChildBackdrop()}
+                            className="btn"
+                            color="error"
+                            variant="contained"
+                          >
+                            NO
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              handleConfirmation(userData);
+                            }}
+                            className="btn"
+                            variant="contained"
+                          >
+                            YES
+                          </Button>
+                        </FlexBackdrop>
+                      </Backdrop>
+                    )}
                   </StyledListElements>
                 </Fragment>
               );
@@ -231,7 +277,7 @@ export default function Home() {
                       <FlexBackdrop>
                         <h2>are you sure?</h2>
                         <Button
-                          onClick={() => setPopup(false)}
+                          onClick={() => closeBackdrop()}
                           className="btn"
                           color="error"
                           variant="contained"
@@ -290,29 +336,6 @@ export default function Home() {
               );
             }
           })}
-
-        {popup && (
-          <StyledPopup>
-            <h2>are you sure?</h2>
-            <Button
-              onClick={() => setPopup(false)}
-              className="btn"
-              color="error"
-              variant="contained"
-            >
-              NO
-            </Button>
-            <Button
-              onClick={() => {
-                handleConfirmation(popup);
-              }}
-              className="btn"
-              variant="contained"
-            >
-              YES
-            </Button>
-          </StyledPopup>
-        )}
       </StyledList>
       {user.type === "Parent" && <AddButton endpoint="/home/addTask" />}
       <GoldWallet />

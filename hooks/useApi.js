@@ -1,27 +1,25 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 export const useApi = endpoint => {
   const [load, setLoad] = useState(false);
   const [response, setResponse] = useState([]);
-  useEffect(() => {
-    const getRewards = async () => {
-      try {
-        setLoad(true);
-        const response = await fetch(endpoint);
-        if (response.ok) {
-          const data = await response.json();
-          setResponse(data);
-          setLoad(false);
-        } else {
-          throw new Error(
-            `Fetch fehlgeschlagen mit Status: ${response.status}`
-          );
-        }
-      } catch (error) {
-        alert(error.message);
+  const getRewards = useCallback(async () => {
+    try {
+      setLoad(true);
+      const response = await fetch(endpoint);
+      if (response.ok) {
+        const data = await response.json();
+        setResponse(data);
+        setLoad(false);
+      } else {
+        throw new Error(`Fetch fehlgeschlagen mit Status: ${response.status}`);
       }
-    };
-    getRewards();
+    } catch (error) {
+      alert(error.message);
+    }
   }, [endpoint]);
-  return [response, load];
+  useEffect(() => {
+    getRewards();
+  }, [getRewards]);
+  return [response, load, getRewards];
 };
