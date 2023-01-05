@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 
-export default function Addbutton({endpoint}) {
+export default function AddButton({endpoint}) {
   return (
     <Link href={endpoint}>
       <StyledSvg
