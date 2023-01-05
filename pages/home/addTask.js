@@ -30,15 +30,9 @@ export default function AddTask() {
     setTask(newData);
   }
 
-  const submitTask = async () => {
-    await fetch("/api/tasks", {
-      method: "POST",
-      body: JSON.stringify(task),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
+  function triggerPopup() {
+    setPopup(previousState => !previousState);
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -46,8 +40,14 @@ export default function AddTask() {
     triggerPopup();
   }
 
-  function triggerPopup() {
-    setPopup(previousState => !previousState);
+  async function submitTask() {
+    await fetch("/api/tasks", {
+      method: "POST",
+      body: JSON.stringify(task),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 
   return (

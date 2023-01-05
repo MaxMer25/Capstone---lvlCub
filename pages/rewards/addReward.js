@@ -25,15 +25,9 @@ export default function AddReward() {
     setReward(newData);
   }
 
-  const submitReward = async () => {
-    await fetch("/api/rewards", {
-      method: "POST",
-      body: JSON.stringify(reward),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
+  function triggerPopup() {
+    setPopup(previousState => !previousState);
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -41,8 +35,14 @@ export default function AddReward() {
     triggerPopup();
   }
 
-  function triggerPopup() {
-    setPopup(previousState => !previousState);
+  async function submitReward() {
+    await fetch("/api/rewards", {
+      method: "POST",
+      body: JSON.stringify(reward),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 
   return (
