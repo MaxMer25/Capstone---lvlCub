@@ -2,56 +2,46 @@
   {
     "title": "Mit dem Hund rausgehen",
     "image": "/examples/dogexample.png",
-    "forWhom": "Jurian",
-    "whoDid": "Jurian",
+    "whoDid": "",
     "details": "Lass ihn an der Leine",
     "gold": 250,
     "experience": 5000,
-    "until": "DATE",
     "review": "open"
   },
   {
     "title": "Einkaufen",
     "image": "/examples/groceryexample.png",
-    "forWhom": "Alrike",
-    "whoDid": "Alrike",
+    "whoDid": "",
     "details": "Bitte Hundefutter mitbringen",
     "gold": 350,
     "experience": 150,
-    "until": "DATE",
     "review": "open"
   },
   {
     "title": "Zimmer aufräumen",
     "image": "/examples/roomexample.png",
-    "forWhom": "Max",
-    "whoDid": "Max",
+    "whoDid": "",
     "details": "Bitte auch staubsaugen",
     "gold": 100,
     "experience": 50,
-    "until": "DATE",
     "review": "open"
   },
   {
     "title": "Blumen gießen",
     "image": "/examples/flowerexample.png",
-    "forWhom": "General",
-    "whoDid": "Max",
+    "whoDid": "",
     "details": "Nicht zu viel gießen",
     "gold": 100,
     "experience": 100,
-    "until": "DATE",
     "review": "open"
   },
   {
     "title": "Wäsche zusammenlegen",
     "image": "/examples/clothesexample.png",
-    "forWhom": "General",
-    "whoDid": "Jurian",
+    "whoDid": "",
     "details": "",
     "gold": 150,
     "experience": 150,
-    "until": "DATE",
     "review": "open"
   }
 ]

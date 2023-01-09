@@ -20,7 +20,6 @@ async function handler(req, res) {
           details: req.body.details,
           gold: req.body.gold,
           experience: req.body.experience,
-          until: req.body.until,
           review: req.body.review,
         });
         await newTask.save();

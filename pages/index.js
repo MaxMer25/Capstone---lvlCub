@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useContext} from "react";
 import styled from "styled-components";
 import Header from "../components/Header/Header";
 import ChildIcon from "../components/ChildIcon";
@@ -7,13 +7,12 @@ import {UserContext} from "../components/UserContext";
 import {LoadingAnimation} from "../components/LoadingAnimation";
 import {Button} from "@mui/material";
 import Popup from "../components/Popup";
+import {useApi} from "../hooks/useApi";
 
 export default function Login() {
   const {user, setUser} = useContext(UserContext);
   const [popup, setPopup] = useState(false);
-  const [load, setLoad] = useState(false);
-  const [fetchUser, setFetchUser] = useState([]);
-  const [shouldReload, setShouldReload] = useState(true);
+  const {response: fetchedUser, load} = useApi("/api/user/");
   const [userInfo] = useState({
     name: "",
     type: "Child",
@@ -21,30 +20,6 @@ export default function Login() {
     experience: 0,
     level: 1,
   });
-
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        setLoad(!load);
-        const response = await fetch("/api/user/");
-        if (response.ok) {
-          const data = await response.json();
-          setFetchUser(data);
-          setLoad(false);
-        } else {
-          throw new Error(
-            `Fetch fehlgeschlagen mit Status: ${response.status}`
-          );
-        }
-      } catch (error) {
-        alert(error.message);
-      }
-      setShouldReload(false);
-    };
-    if (shouldReload) {
-      getUser();
-    }
-  }, [shouldReload]);
 
   const submitUser = async x => {
     await fetch("/api/user", {
@@ -63,7 +38,6 @@ export default function Login() {
       name: event.target.name.value,
     });
     setPopup(!popup);
-    setShouldReload(true);
   }
 
   function addChildren() {
@@ -75,7 +49,7 @@ export default function Login() {
       <StyleWrapper>
         <h1>Welcome to lvlCub! Please Choose:</h1>
         <StyledParentContainer>
-          {fetchUser.map(u => {
+          {fetchedUser.map(u => {
             if (u.type === "Parent") {
               return (
                 <div
@@ -119,7 +93,7 @@ export default function Login() {
         )}
 
         <StyledProfileContainer>
-          {fetchUser.map(u => {
+          {fetchedUser.map(u => {
             if (u.type === "Child") {
               return (
                 <div

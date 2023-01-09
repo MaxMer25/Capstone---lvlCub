@@ -25,15 +25,9 @@ export default function AddReward() {
     setReward(newData);
   }
 
-  const submitReward = async () => {
-    await fetch("/api/rewards", {
-      method: "POST",
-      body: JSON.stringify(reward),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
+  function triggerPopup() {
+    setPopup(previousState => !previousState);
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -41,8 +35,14 @@ export default function AddReward() {
     triggerPopup();
   }
 
-  function triggerPopup() {
-    setPopup(previousState => !previousState);
+  async function submitReward() {
+    await fetch("/api/rewards", {
+      method: "POST",
+      body: JSON.stringify(reward),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 
   return (
@@ -63,12 +63,14 @@ export default function AddReward() {
             type="file"
             onChange={handleChange}
           ></input>
-          <Image
-            src={file}
-            alt="Preview of uploaded picture"
-            width={150}
-            height={125}
-          />
+          {file && (
+            <Image
+              src={file}
+              alt="Preview of uploaded picture"
+              width={150}
+              height={125}
+            />
+          )}
           <label htmlFor="cost">How much should it cost?</label>
           <input
             name="cost"
@@ -76,18 +78,14 @@ export default function AddReward() {
             type="number"
             onChange={event => handle(event)}
           ></input>
-          <label htmlFor="maxPerDay">
-            How many times can it be purchased on one day?
-          </label>
-          <input
-            name="maxPerDay"
-            id="maxPerDay"
-            type="number"
-            onChange={event => handle(event)}
-          ></input>
-          <button onClick={handleSubmit} className="submitButton" type="submit">
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            className="submitButton"
+            type="submit"
+          >
             Create Task!
-          </button>
+          </Button>
         </StyledForm>
         {popup && (
           <Popup>
@@ -144,7 +142,7 @@ const StyledForm = styled.form`
     padding: 5%;
     margin: 2%;
     box-sizing: border-box;
-    border-radius: 2%;
+    border-radius: 20px;
   }
 
   input[type="number"] {
@@ -152,12 +150,24 @@ const StyledForm = styled.form`
     padding: 5%;
     margin: 2%;
     box-sizing: border-box;
-    border-radius: 2%;
+    border-radius: 20px;
   }
 
   input[type="file"] {
     width: 35%;
     padding: 5%;
     color: rgba(0, 0, 0, 0);
+  }
+
+  input::file-selector-button {
+    background-color: #33ca7f;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    height: 2rem;
+  }
+
+  button {
+    background-color: #33ca7f;
   }
 `;
