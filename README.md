@@ -17,6 +17,17 @@ Take a look at the App [here](https://capstone-lvl-cub.vercel.app/)!
 
 ---
 
+## Tech Stack
+- Javascript
+- React.js
+- Next.js
+- Styled Components
+- MongoDB
+- Mongoose
+- Material UI
+
+## App impressions
+
 <p align="center">
   <img src="https://user-images.githubusercontent.com/113447663/211511568-9e57829e-4fd0-490b-b71d-2272471c5d05.png" />
   <img src="https://user-images.githubusercontent.com/113447663/211511351-74abef54-d7fb-4467-9f3d-61fbb1304c2d.png" />
