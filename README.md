@@ -1,108 +1,26 @@
-# Capstone-Project-Template for Octopodes
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/113447663/211506937-5aca095b-e027-4ca5-9884-430b997a87ca.svg" />
+</p>
 
-- Next.js project created with `create-next-app`
-- [Default Styling (with CSS Modules) has been removed](#styling)
-- [Styled Components support added](#styling)
-- [Mongoose connectivity support added](#mongoose-connectivity)
-- [Storybook support added](#storybook)
-- [ESLint config added](#eslint)
-- [React Testing Library & Jest support added](#testing)
-- [Prettier config added](#prettier)
+---
 
-## Getting Started
+# *Grant your Kids a level up, they might need in life!*
 
-Run the development server:
+**lvlCub** - an app for parents/teachers/big siblings
+to simplify the learning process of children in a playful way.
+With small rewards and a constant displayed progress (lvlBar)
+recurring, annoying tasks should be more fun.
 
-```bash
-npm run dev
-```
+This app was developed as my capstone project during the final four weeks of the neuefische Web Development Bootcamp in December, 2022.
 
-Open [http://localhost:3000](http://localhost:3000) to see the result.
+Take a look at the App [here](https://capstone-lvl-cub.vercel.app/)!
 
-Run Storybook:
+---
 
-```bash
-npm run storybook
-```
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/113447663/211511568-9e57829e-4fd0-490b-b71d-2272471c5d05.png" />
+  <img src="https://user-images.githubusercontent.com/113447663/211511351-74abef54-d7fb-4467-9f3d-61fbb1304c2d.png" />
+  <img src="https://user-images.githubusercontent.com/113447663/211511392-340cb488-2462-4d82-a617-e30d2e5c36e1.png" />
+  <img src="https://user-images.githubusercontent.com/113447663/211511405-bd560e5f-5c88-4c58-bdf7-ee58db194e2f.png" />
+</p>
 
-Open [http://localhost:6006](http://localhost:6006) to inspect your components
-with Storybook.
-
-Run tests:
-
-```bash
-npm run test
-# or
-npm run test:watch
-```
-
-## Styling
-
-We removed the Next.js default styles and added Styled Components support.
-
-You can find an initial [`GobalStyles.js`](/styles/GlobalStyles.js) in the
-`/styles` directory. Storybook is already configured to respect styles from
-`GlobalStyles.js`
-
-## Mongoose connectivity
-
-We added a mongoose connection helper function in
-[`/pages/api/_db/connect-db.js`](/pages/api/_db/connect-db.js).
-
-Please remember to wrap your API route handler functions with the `connectDB()`
-helper when exporting:
-
-```
-export default connectDB(handler);
-```
-
-To use your own DB, create a `.env.local` file and add your connection string as
-shown in [`.env.local.example`](/.env.local.example). Please remember to add
-your database name at the end of the connection string.
-
-We prepared a demo API route handler
-[`pages/api/octopodes.js`](/pages/api/octopodes.js) and some demo data in the
-[`/_data`](/_data) folder. Additionally there is a mongoose model for the demo
-data in [`/pages/api/_db/models`](/pages/api/_db/models). This is just for
-demonstration purposes - create your own data and models following this pattern.
-
-## Storybook
-
-We created a demo component
-[`/components/OctopusCard.js`](/components/OctopusCard.js) and corresponding
-stories. Create your own stories following this pattern.
-
-## ESLint
-
-You can run ESLint from the terminal by typing
-
-```bash
-npm run lint
-```
-
-Please make sure that there are no linter errors before pushing to Github. Your
-pull requests will report failed code quality checks otherwise.
-
-## Testing
-
-Please write your tests in the [`/__tests__`](/__tests__/) folder instead of
-placing them next to your components. Next.js does not allow test files in its
-`/pages` directory.
-
-We prepared a demo test that tests if the Homepage renders a 🐙.
-
-Please make sure that all tests pass before pushing to Github. Your pull
-requests will report failed test runs otherwise.
-
-## Prettier
-
-We added a [Prettier configuration file](/.prettierrc) with basic formatting
-rules. Feel free to edit these rules to your taste.
-
-You can check the formatting of your files with `npm run prettier`
-
-You can auto format all files in the project by calling
-`npm run prettier:write`.
-
-Please make sure that your code passes the prettier check before pushing to
-Github. Your pull requests will report failed code quality checks otherwise.
